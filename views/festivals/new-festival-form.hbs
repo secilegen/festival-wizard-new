@@ -1,0 +1,77 @@
+<div class="container">
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+
+                <h1>New Festival</h1>
+
+                <hr>
+
+                <form action="/Festivals/create" method="POST">
+                    <label>
+                        Name: <input type="text" name="name" placeholder="Festival name">
+                    </label>
+
+                    <label>
+                        Image: <input type="text" name="image" placeholder="Add a link to a file">
+                    </label>
+
+                    <label>
+                        Start Date: <input type="date" name="startDate" placeholder="Start Date">
+                    </label>
+
+                    <label>
+                        End Date: <input type="date" name="endDate" placeholder="End Date (if this is empty, Start Date is used)">
+                    </label>
+
+                    <label>
+                        Artists: <input type="text" name="artists" placeholder="Artists performing">
+                    </label>
+
+                    <label>
+                        Country: <input type="text" name="country" placeholder="Country">
+                    </label>    
+
+                    <label>
+                        City: <input type="text" name="city" placeholder="City">
+                    </label>
+
+                    <label>
+                        Address: <input type="text" name="address" placeholder="Address">
+                    </label>
+
+                    <label>
+                        Currency: <input type="text" name="Currency" placeholder="Currency">
+                    </label>
+
+                    <label>
+                        Min Price: <input type="number" name="minPrice" placeholder="Minimum Price">
+                    </label>
+
+                    <label>
+                        Max Price: <input type="number" name="maxPrice" placeholder="Maximum Price">
+                    </label>
+
+                    <label>
+                        Website: <input type="url" name="website" placeholder="Add a link to a URL">
+                    </label>
+
+                    <label>
+                        Key fact: <input type="text" name="mustKnow" placeholder="Add one key fact about the festival">
+                    </label>
+
+                    <label>
+                        Genre: <input type="text" name="grnre" placeholder="Music genre(s)">
+                    </label>
+
+                                       
+
+                    <input type="submit" value="Create Festival" class="btn-dark btn">
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+</div>

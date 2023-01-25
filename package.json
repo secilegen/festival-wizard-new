@@ -21,5 +21,17 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.20"
-  }
+  },
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/team-phil-sec/festival-wizard.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/team-phil-sec/festival-wizard/issues"
+  },
+  "homepage": "https://github.com/team-phil-sec/festival-wizard#readme",
+  "description": ""
 }
