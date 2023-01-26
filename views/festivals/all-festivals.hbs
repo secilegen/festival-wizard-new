@@ -1,0 +1,35 @@
+<h1>Here are all the Festivals in our Database</h1>
+
+<div id="container"
+
+{{#if result}}
+
+  {{#each result}}
+    <div style="border: solid blue; padding:10px 10px 10px 10px">
+      <h2>{{name}}</h2>
+
+      <p>Date: {{startDate}} - {{endDate}} </p>
+      <p>Location: {{location}}</p>
+
+    </div><br><br>
+
+
+  {{/each}}
+
+
+{{!-- Add later 
+<a href="/Festivals/{{_id}}">Link to Book</a>
+<a style="margin-left:5px" href="/Festivals/{{_id}}/edit">Edit Book</a>
+<form action="/Festivalks/{{_id}}/delete" method="POST">
+    <button>Delete Festival</button>
+</form>
+<br> --}}
+
+
+
+{{else}}
+  No festivals in the Database
+{{/if}}
+
+</div>
+

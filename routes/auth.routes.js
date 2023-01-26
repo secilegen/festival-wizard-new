@@ -2,12 +2,10 @@ const router = require('express').Router()
 const mongoose = require('mongoose')
 const bcrypt = require('bcryptjs')
 const User = require('../models/User.model')
-const saltRounds = 10
 const isLoggedOut = require("../middleware/isLoggedOut");
 const isLoggedIn = require("../middleware/isLoggedIn");
+const saltRounds = 10
 
-
-// Only make signup page accessible if the user is not logged in
 router.get('/sign-up', isLoggedOut, (req,res)=>{
     console.log('Rendering done')
     // data = {userInSession: req.session.currentUser}
@@ -15,7 +13,7 @@ router.get('/sign-up', isLoggedOut, (req,res)=>{
     
 })
 
-router.post('/sign-up', (req,res)=>{
+router.post('/sign-up', isLoggedOut, (req,res)=>{
     console.log(req.body)
     const {email, password} = req.body
 
@@ -37,12 +35,11 @@ router.post('/sign-up', (req,res)=>{
 
 })
 
-// Only make login page accessible if the user is not logged in
 router.get('/login', isLoggedOut, (req,res)=>{
     res.render('auth/login')
 })
 
-router.post('/login', (req,res)=>{
+router.post('/login', isLoggedOut, (req,res)=>{
     console.log('Session:', req.session)
     console.log(req.body)
     const {email, password} = req.body
@@ -69,27 +66,16 @@ router.post('/login', (req,res)=>{
     .catch(err=>console.log('Authentication error is', err))
 })
 
-// Only make profile page available if logged in
-router.get('/profile',isLoggedIn, (req,res)=>{
+router.get('/profile',(req,res)=>{
     res.render('user/profile', {userInfo:req.session.currentUser})
     console.log('User info is:', req.session.currentUser)
 })
 
-router.post('/logout', (req,res,next)=>{
+router.post('/logout', isLoggedIn, (req,res,next)=>{
     req.session.destroy(err => {
         if (err) next(err);
         res.redirect('/login');
     });
 })
-
-
-router.get('/Festivals/list', (req, res) => {
-  });
-
-router.get('/Festivals/create', (req, res) => {
-    res.render('festivals/new-festival-form');
-  });
-
-
 
 module.exports = router

@@ -33,6 +33,8 @@ app.use("/", indexRoutes);
 const authRoutes = require('./routes/auth.routes');
 app.use('/', authRoutes)
 
+const festivalRoutes = require('./routes/festival.routes');
+app.use('/', festivalRoutes)
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
