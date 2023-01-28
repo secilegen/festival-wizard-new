@@ -15,8 +15,9 @@
          <ul>
             <li id="to-right">
             <a href="/">Home</a> <span> | </span>
-            <a href="/sign-up">Signup</a> <span> | </span>
-            <a href="/login">Login</a> <span> | </span>
+
+            {{#if userInfo}}
+
             <a href="/profile">Profile</a> <span> | </span>
             <br>
             <br>
@@ -24,6 +25,10 @@
                <br>
                <button>Logout</button>
             </form>
+            {{else}}
+            <a href="/sign-up">Signup</a> <span> | </span>
+            <a href="/login">Login</a> <span> | </span>
+            {{/if}}
          </ul>
       </nav>
 
