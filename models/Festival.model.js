@@ -13,11 +13,11 @@ const festivalSchema = new Schema (
             default: 'imageURL'
         },
         startDate: {
-            type: Date,
+            type: String,
             required: [true, "Please enter a start date"]
         },
         endDate: {
-            type: Date
+            type: String
         },
         artists: {
             type: [String]
@@ -46,7 +46,7 @@ const festivalSchema = new Schema (
         maxPrice: {
             type: Number
         },
-        websiteURL: {
+        website: {
             type: String,
             required: [true, "Please enter a website"]
         },

@@ -1,0 +1,77 @@
+<div class="container">
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+
+                <h1>Edit Festival</h1>
+
+                <hr>
+
+                <form action="/festivals/{{_id}}/edit/" method="POST">
+                    <label>
+                        <b>Name:</b> <input type="text" name="name" value="{{name}}">
+                    </label><br><br>
+
+                    <label>
+                        <b>Image:</b> <input type="text" name="image"  value="{{imageURL}}">
+                    </label><br><br>
+
+                    <label>
+                        <b>Start Date:</b> <input type="date" name="startDate" value="{{startDate}}">
+                    </label>
+
+                    <label>
+                        <b>End Date:</b> <input type="date" name="endDate" value="{{endDate}}">
+                    </label><br><br>
+
+                    <label>
+                        <b>Artists:</b> <input type="text" name="artists" value="{{artists}}">
+                    </label><br><br>
+
+                    <label>
+                        <b>Country:</b> <input type="text" name="country" value="{{location.country}}">
+                    </label>  <br><br>  
+
+                    <label>
+                        <b>City:</b> <input type="text" name="city" value="{{location.city}}">
+                    </label><br><br>
+
+                    <label>
+                        <b>Address:</b> <input type="text" name="address" value="{{location.address}}">
+                    </label><br><br>
+
+                    <label>
+                        <b>Currency:</b> <input type="text" name="currency" value="{{currency}}">
+                    </label><br><br>
+
+                    <label>
+                        <b>Min Price:</b> <input type="number" name="minPrice" value="{{minPrice}}">
+                    </label>
+
+                    <label>
+                        <b>Max Price:</b> <input type="number" name="maxPrice" value="{{maxPrice}}">
+                    </label><br><br>
+
+                    <label>
+                        <b>Website:</b> <input type="text" name="website" value="{{website}}">
+                    </label><br><br>
+
+                    <label>
+                        <b>Key fact:</b> <input type="text" name="mustKnow" value="{{mustKnow}}">
+                    </label><br><br>
+
+                    <label>
+                        <b>Genre:</b> <input type="text" name="genre" value="{{genre}}">
+                    </label><br><br>
+
+                                       
+
+                    <input type="submit" value="Edit Festival" class="btn-dark btn">
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+</div>

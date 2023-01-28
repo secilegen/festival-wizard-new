@@ -2,21 +2,18 @@
 
 <div id="container"
 
-{{#if result}}
+{{#if allFestivals}}
 
-  {{#each result}}
+  {{#each allFestivals}}
     <div style="border: solid blue; padding:10px 10px 10px 10px">
       <h2>{{name}}</h2>
 
       <p>Date: {{startDate}} - {{endDate}} </p>
       <p>Location: {{location}}</p>
+      <div><a href="/festivals/{{_id}}">See Details</a></div>
 
     </div><br><br>
-
-
   {{/each}}
-
-
 {{!-- Add later 
 <a href="/Festivals/{{_id}}">Link to Book</a>
 <a style="margin-left:5px" href="/Festivals/{{_id}}/edit">Edit Book</a>
@@ -25,10 +22,8 @@
 </form>
 <br> --}}
 
-
-
 {{else}}
-  No festivals in the Database
+  <p>  No festivals in the Database </p>
 {{/if}}
 
 </div>
