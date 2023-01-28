@@ -30,8 +30,10 @@ router.post('/sign-up', isLoggedOut, (req,res)=>{
         })
 
     })
-    res.redirect('/')
-    // .catch(err=> console.log('Error is:', err))
+    .then(()=>{
+        res.redirect('/login')
+    })
+    .catch(err=> console.log('Sign-up error is:', err))
 
 })
 
@@ -66,8 +68,9 @@ router.post('/login', isLoggedOut, (req,res)=>{
     .catch(err=>console.log('Authentication error is', err))
 })
 
-router.get('/profile',(req,res)=>{
-    res.render('user/profile', {userInfo:req.session.currentUser})
+router.get('/profile', isLoggedIn, (req,res)=>{
+    let data = {userInfo: req.session.currentUser}
+    res.render('user/profile', data)
     console.log('User info is:', req.session.currentUser)
 })
 
