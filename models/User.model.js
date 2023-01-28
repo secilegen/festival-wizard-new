@@ -1,25 +1,34 @@
-const { Schema, model } = require("mongoose");
+const { Schema, model, default: mongoose } = require("mongoose");
 
 // TODO: Please make sure you edit the User model to whatever makes sense in this case
 const userSchema = new Schema(
   {
-    username: {
-      type: String,
-      trim: true,
-      required: false,
-      unique: true
-    },
     email: {
       type: String,
-      required: true,
-      unique: true,
+      required: [true,"Email is required"],
+      unique: [true, "Email already in use, try a different email"],
       lowercase: true,
       trim: true
     },
-    password: {
+    passwordHash: {
       type: String,
-      required: true
-    }
+      required: [true, "Password is required"]
+    },
+    firstName: {
+      type: String,
+      trim: true
+    },
+    lastName: {
+      type: String,
+      trim: true
+    },
+    location: {
+      country: String,
+      city:  String,
+      address: String,
+    },
+    // Come back to this one
+    festivals: [{type: Schema.Types.ObjectId, ref: "Festival"}]
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`    
