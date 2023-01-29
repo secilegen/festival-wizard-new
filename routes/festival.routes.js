@@ -32,8 +32,8 @@ router.post('/festivals/create',(req,res)=>{
     }
     else if (req.body.startDate > req.body.endDate) {
         console.log("Start Date must not be after the End Date")
-        console.log("Start Date has been set to ", req.body.endDate)
-        req.body.startDate = req.body.endDate
+        console.log("End Date has been set to ", req.body.startDate)
+        req.body.endDate = req.body.startDate
     }
 
 
