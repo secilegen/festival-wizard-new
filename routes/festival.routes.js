@@ -7,10 +7,40 @@ router.get('/festivals/create',(req,res)=>{
 })
 
 router.post('/festivals/create',(req,res)=>{
+
+    if (req.body.minPrice && !req.body.maxPrice){
+        console.log("Maximum Price has been set to ", req.body.minPrice)
+        req.body.maxPrice = req.body.minPrice
+    }
+    else if (!req.body.minPrice && !req.body.minPrice){
+        console.log("Minimum Price has been set to ", req.body.maxPrice)
+        req.body.minPrice = req.body.maxPrice
+    }
+    else if (Number(req.body.minPrice) > Number(req.body.maxPrice)) {
+        console.log("Maximum price must be greater than or equal to minimum price")
+        console.log("Maximum price has been set to ", req.body.minPrice)
+        req.body.maxPrice = req.body.minPrice
+    }
+
+    if (req.body.startDate && !req.body.endDate) {
+        console.log("End Date has been set to ", req.body.startDate)
+        req.body.endDate = req.body.startDate
+    }
+    else if (!req.body.startDate && req.body.endDate) {
+        console.log("Start Date has been set to ", req.body.endDate)
+        req.body.startDate = req.body.endDate
+    }
+    else if (req.body.startDate > req.body.endDate) {
+        console.log("Start Date must not be after the End Date")
+        console.log("Start Date has been set to ", req.body.endDate)
+        req.body.startDate = req.body.endDate
+    }
+
+
     const {name,imageURL,startDate,endDate,country, city, address,currency,minPrice,maxPrice,website,mustKnow,genre} = req.body
+
     Festival.create({name:name, imageURL: imageURL, startDate: startDate, endDate:endDate, location: {city:city, country:country, address:address}, currency: currency, minPrice: minPrice,maxPrice: maxPrice,website: website,mustKnow: mustKnow,genre:genre })
     .then((createdFestival)=>{  
-        console.log('Created festival is: ', createdFestival)
         res.redirect('/festivals/list')
         // res.redirect(`/festivals/${createdFestival._id}`)
     })
