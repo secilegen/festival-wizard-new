@@ -6,24 +6,24 @@ const isLoggedOut = require("../middleware/isLoggedOut");
 const isLoggedIn = require("../middleware/isLoggedIn");
 const saltRounds = 10
 
+// const adminMail = "admin@admin.com"
+// const adminPassword = "1234"
+var isAdmin
+  
+
+
 router.get('/sign-up', isLoggedOut, (req,res)=>{
-    console.log('Rendering done')
-    // data = {userInSession: req.session.currentUser}
-    res.render('auth/sign-up')
-    
+    res.render('auth/sign-up') 
 })
 
 router.post('/sign-up', isLoggedOut, (req,res)=>{
-    console.log(req.body)
     const {email, password} = req.body
 
     bcrypt.genSalt(saltRounds)
     .then((salt)=>{
-        console.log("Result of salt", salt)
         return bcrypt.hash(password, salt)
     })
     .then(hashedPassword =>{
-        console.log('Hashed password is:', hashedPassword)
         return User.create({
             email: email,
             passwordHash: hashedPassword
@@ -42,8 +42,6 @@ router.get('/login', isLoggedOut, (req,res)=>{
 })
 
 router.post('/login', isLoggedOut, (req,res)=>{
-    console.log('Session:', req.session)
-    console.log(req.body)
     const {email, password} = req.body
 
     if(!email || !password){
@@ -51,15 +49,17 @@ router.post('/login', isLoggedOut, (req,res)=>{
         return
     }
 
+    isAdmin = (req.body.email === global.adminMail) && (req.body.password === global.adminPassword)
+
     User.findOne({email})
     .then(user=>{
-        console.log(user)
         if(!user){
             res.render('auth/login', {errorMessage: 'User not found. Please sign up'})
         }
         else if(bcrypt.compareSync(password, user.passwordHash)){
             req.session.currentUser = user
             res.redirect('/profile')
+            // console.log("email: ", req.body.email, "password: ", req.body.password)
         }
         else {
             res.render('auth/login', {errorMessage: 'Incorrect password'})
@@ -70,8 +70,13 @@ router.post('/login', isLoggedOut, (req,res)=>{
 
 router.get('/profile', isLoggedIn, (req,res)=>{
     let data = {userInfo: req.session.currentUser}
-    res.render('user/profile', data)
-    console.log('User info is:', req.session.currentUser)
+    if (isAdmin) {
+      console.log("ADMIN")
+      res.render('user/admin-profile', data)
+    }
+    else{
+      res.render('user/profile', data)     
+    }
 })
 
 router.post('/logout', isLoggedIn, (req,res,next)=>{
@@ -80,5 +85,10 @@ router.post('/logout', isLoggedIn, (req,res,next)=>{
         res.redirect('/login');
     });
 })
+
+
+
+
+
 
 module.exports = router
