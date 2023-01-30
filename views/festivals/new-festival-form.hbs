@@ -325,7 +325,11 @@
 
                                        
 
-                    <input type="submit" value="Create Festival" class="btn-dark btn">
+                    <input type="submit" value="Create Festival" class="btn-dark btn"><br><br>
+
+                    {{#if errorMessage}}
+                      <p class={{errorType}}>{{errorMessage}}</p>
+                    {{/if}}
                 </form>
 
             </div>
