@@ -14,16 +14,13 @@ router.get('/sign-up', isLoggedOut, (req,res)=>{
 })
 
 router.post('/sign-up', isLoggedOut, (req,res)=>{
-    console.log(req.body)
     const {email, password} = req.body
 
     bcrypt.genSalt(saltRounds)
     .then((salt)=>{
-        console.log("Result of salt", salt)
         return bcrypt.hash(password, salt)
     })
     .then(hashedPassword =>{
-        console.log('Hashed password is:', hashedPassword)
         return User.create({
             email: email,
             passwordHash: hashedPassword
@@ -42,8 +39,6 @@ router.get('/login', isLoggedOut, (req,res)=>{
 })
 
 router.post('/login', isLoggedOut, (req,res)=>{
-    console.log('Session:', req.session)
-    console.log(req.body)
     const {email, password} = req.body
 
     if(!email || !password){
@@ -53,7 +48,6 @@ router.post('/login', isLoggedOut, (req,res)=>{
 
     User.findOne({email})
     .then(user=>{
-        console.log(user)
         if(!user){
             res.render('auth/login', {errorMessage: 'User not found. Please sign up'})
         }
@@ -71,7 +65,6 @@ router.post('/login', isLoggedOut, (req,res)=>{
 router.get('/profile', isLoggedIn, (req,res)=>{
     let data = {userInfo: req.session.currentUser}
     res.render('user/profile', data)
-    console.log('User info is:', req.session.currentUser)
 })
 
 router.post('/logout', isLoggedIn, (req,res,next)=>{
