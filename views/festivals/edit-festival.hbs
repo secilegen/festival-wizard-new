@@ -34,7 +34,9 @@
                         {{!-- <input type="text" name="country" value="{{location.country}}"> --}}
 
                                 <select id="country" name="country" value="{{location.country}}">
-                                    <option value="Afghanistan">Afghanistan</option>
+                                    {{#each countries}}
+                                        <option value={{this}}> {{this}} </option>
+                                    {{/each}}
                                     <option value="Åland Islands">Åland Islands</option>
                                     <option value="Albania">Albania</option>
                                     <option value="Algeria">Algeria</option>
