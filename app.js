@@ -30,6 +30,12 @@ const capitalize = require("./utils/capitalize");
 const projectName = "festival-wizard";
 
 app.locals.appTitle = `${capitalize(projectName)} created with IronLauncher`;
+app.use( (req,res,next)=> {
+  console.log("Hello")
+  app.locals.userInfo = req.session.currentUser
+  next()
+
+})
 
 // const adminCode = require('./routes/adminCode');
 // app.use('/', adminCode)

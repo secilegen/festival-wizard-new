@@ -53,7 +53,8 @@ router.post('/login', isLoggedOut, (req,res)=>{
             res.render('auth/login', {errorMessage: 'User not found. Please sign up'})
         }
         else if(bcrypt.compareSync(password, user.passwordHash)){
-            req.session.currentUser = user
+            req.session.currentUser = user.toObject()
+            delete req.session.currentUser.passwordHash
             res.redirect('/profile')
             // console.log("email: ", req.body.email, "password: ", req.body.password)
         }
