@@ -47,7 +47,7 @@ router.post('/festivals/create',(req,res)=>{
             errorType = "warning"
             req.body.maxPrice = req.body.minPrice
             res.render('festivals/new-festival-form', {errorMessage: message, errorType});
-            // return;
+            return;
         }
         else if (!req.body.minPrice && req.body.maxPrice){
             message = "Minimum Price has been set to " + req.body.maxPrice
