@@ -27,6 +27,11 @@ const userSchema = new Schema(
       city:  String,
       address: String,
     },
+    isAdmin: {
+      type: Boolean,
+      default: false
+    },
+
     // Come back to this one
     festivals: [{type: Schema.Types.ObjectId, ref: "Festival"}]
   },
