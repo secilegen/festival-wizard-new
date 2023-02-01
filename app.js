@@ -1,7 +1,3 @@
-// global.adminMail = "admin@admin.com"
-// global.adminPassword = "1234"
-
-require('./adminCode')
 
 // ℹ️ Gets access to environment variables/settings
 // https://www.npmjs.com/package/dotenv
@@ -35,9 +31,6 @@ app.use( (req,res,next)=> {
   app.locals.userInfo = req.session.currentUser
   next()
 })
-
-// const adminCode = require('./routes/adminCode');
-// app.use('/', adminCode)
 
 // 👇 Start handling routes here
 const indexRoutes = require("./routes/index.routes");

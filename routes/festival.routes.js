@@ -8,7 +8,7 @@ const Festival = require('../models/Festival.model')
 const countries = require("../utils/countries")
 
 router.get('/festivals/create',(req,res)=>{
-    res.render('festivals/new-festival-form', countries)
+    res.render('festivals/new-festival-form', {countries})
 })
 
 router.post('/festivals/create',(req,res)=>{
@@ -17,105 +17,80 @@ router.post('/festivals/create',(req,res)=>{
         if (!req.body.name) {
             message = "You must enter a name for your Festival"
             errorType="error"
-            // res.render('festivals/new-festival-form', {errorMessage: message, errorType, oldData: req.body});
         }
-        else if (!req.body.startDate) {
-            message = "You must enter a Start Date"
-            errorType="error"
-            // res.render('festivals/new-festival-form', {errorMessage: message, errorType});
+        else if (!req.body.startDate && !req.body.endDate) {   // if there is an end date but no start date, code below sets start date to end date
+             message = "You must enter a Start Date"
+             errorType="error"
         }       
         else if (!req.body.country) {     // theoretically impossible because of Dropdown menu?
             message = "You must select a country"
             errorType="error"
-            // res.render('festivals/new-festival-form', {errorMessage: message, errorType});    
         }
         else if (!req.body.city) {
             message = "You must enter a city"
             errorType="error"
-            // res.render('festivals/new-festival-form', {errorMessage: message, errorType}); 
         }
         else if (!req.body.website) {
             message = "You must enter a website"
             errorType="error"
-            // res.render('festivals/new-festival-form', {errorMessage: message, errorType}); 
         }
     
         else if (req.body.minPrice && !req.body.maxPrice){
             message = "Maximum Price has been set to " + req.body.minPrice
             errorType = "warning"
             req.body.maxPrice = req.body.minPrice
-                // res.render('festivals/new-festival-form', {errorMessage: message, errorType});
-                // return;
         }
         else if (!req.body.minPrice && req.body.maxPrice){
             message = "Minimum Price has been set to " + req.body.maxPrice
             errorType = "warning"
             req.body.minPrice = req.body.maxPrice
-                // res.render('festivals/new-festival-form', {errorMessage: message, errorType});
-                // return;
         }
         else if (Number(req.body.minPrice) > Number(req.body.maxPrice)) {
             message = "Maximum Price cannot be lower than Minimum. Max price has been set to " + req.body.minPrice
             errorType = "warning"
             req.body.maxPrice = req.body.minPrice
-                // res.render('festivals/new-festival-form', {errorMessage: message, errorType});
-                // return;
         }
         
         else if (req.body.startDate && !req.body.endDate) {
             message = "End Date has been set to " + req.body.startDate
             errorType = "warning"
             req.body.endDate = req.body.startDate
-                // res.render('festivals/new-festival-form', {errorMessage: message, errorType});
-                // return;
         }
         
         else if (!req.body.startDate && req.body.endDate) {
             message = "Start Date has been set to " + req.body.endDate
             errorType = "warning"
             req.body.startDate = req.body.endDate
-                // res.render('festivals/new-festival-form', {errorMessage: message, errorType});
-                // return;
         }
         else if (req.body.startDate > req.body.endDate) {
             message = "End Date cannot be before the Start Date. End Date has been set to " + req.body.startDate
             errorType = "warning"
             req.body.endDate = req.body.startDate
-                // res.render('festivals/new-festival-form', {errorMessage: message, errorType});
-                // return;
         }
 
-        return {errorMessage: message, errorType} 
+        return {countries, errorMessage: message, errorType, oldData: req.body} 
     }
 
     const inputChecked = checkInput(req)
 
     if (inputChecked.errorMessage) {
         inputChecked.oldData = req.body
+        console.log("inputChecked.oldDate: ", inputChecked.oldData)
         return res.render("festivals/new-festival-form", inputChecked)
     }
-
-
-
-
-
-
-        
-        else {
-
-            const {name,imageURL,startDate,endDate,country, city, address,currency,minPrice,maxPrice,website,mustKnow,genre} = req.body
     
-            Festival.create({name:name, imageURL: imageURL, startDate: startDate, endDate:endDate, location: {city:city, country:country, address:address}, currency: currency, minPrice: minPrice,maxPrice: maxPrice,website: website,mustKnow: mustKnow,genre:genre })
-            .then((createdFestival)=>{  
-                res.redirect('/festivals/list')
-            // res.redirect(`/festivals/${createdFestival._id}`)
-            })
-            .catch(err=> console.log('An error occured creating the festival:', err))     
+    else {
 
-        }
+        const {name,imageURL,startDate,endDate,country, city, address,currency,minPrice,maxPrice,website,mustKnow,genre} = req.body
+    
+        Festival.create({name:name, imageURL: imageURL, startDate: startDate, endDate:endDate, location: {city:city, country:country, address:address}, currency: currency, minPrice: minPrice,maxPrice: maxPrice,website: website,mustKnow: mustKnow,genre:genre })
+        .then((createdFestival)=>{  
+            res.redirect('/festivals/list')
+            // res.redirect(`/festivals/${createdFestival._id}`)
+        })
+        .catch(err=> console.log('An error occured creating the festival:', err))     
 
     }
-
 })
 
 
@@ -151,6 +126,7 @@ router.get('/festivals/:id/edit/', (req,res)=>{
     Festival.findById(req.params.id)
     .then((festivalToEdit)=>{
         let countryLeft = countries.filter(country => country === festivalToEdit.location.country)
+        console.log(countryLeft)
         res.render('festivals/edit-festival', {festivalToEdit, countryLeft})
     })
     .catch(err=>console.log('Error occured retrieving the data to edit festival:', err))

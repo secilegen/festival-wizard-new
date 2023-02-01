@@ -34,11 +34,10 @@
                         {{!-- <input type="text" name="country" value="{{location.country}}"> --}}
 
                                 <select id="country" name="country" value="{{location.country}}">
-                                    <option value={{festivalToEdit.location.country}} selected>{{festivalToEdit.location.country}}</option>
-                                    {{#each countriesLeft}}
+                                    <option value={{festivalToEdit.locationcountry}} selected>{{festivalToEdit.location.country}}</option>
+                                    {{#each countryLeft}}
                                         <option value={{this}}> {{this}} </option>
-                                    {{/each}}
-                                    
+                                    {{/each}}                                    
                                 </select>
 
                     </label>  <br><br>  
