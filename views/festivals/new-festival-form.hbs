@@ -33,7 +33,10 @@
                         <b>Country:</b> 
         
                         <select id="country" name="country" class="">
-                            <option value={{oldData.country}} selected>{{oldData.country}}</option>
+                            {{#if OldData.country}}
+                              <option value={{oldData.country}} selected>{{oldData.country}}</option>
+                            {{/if}}
+
                             {{#each countries}}
                                 <option value={{this}}>{{this}}</option>
                             {{/each}}
@@ -52,7 +55,7 @@
                     <label>
                         <b>Currency:</b> <select name="currency">
                             <option value={{oldData.currency}} selected>{{oldData.currency}}</option>
-                            <option value="EUR">EUR</option>
+                            <option value="EUR" selected>EUR</option>
                             <option value="USD">USD</option>
                             <option value="GBP">GBP</option>
                             </select>

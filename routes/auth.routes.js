@@ -7,7 +7,6 @@ const isLoggedIn = require("../middleware/isLoggedIn");
 const saltRounds = 10
 
 router.get('/sign-up', isLoggedOut, (req,res)=>{
-    console.log('Rendering done')
     // data = {userInSession: req.session.currentUser}
     res.render('auth/sign-up')
     
