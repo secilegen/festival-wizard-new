@@ -78,20 +78,13 @@ router.post('/festivals/:id/edit', fileUploader.single('imageURL'), (req,res)=>{
 })
 
 router.get('/festivals/:id/fav/', (req, res)=>{
-    let favFestival;
-    Festival.findById(req.params.id)
-    .then((festivalToFav)=>{
-        console.log('Festival to Fav is:', festivalToFav)
-        favFestival = festivalToFav
-    })
-    .then(()=>{
+    
         User.findById(req.session.currentUser._id)
         .then(userToUpdate=>{
             console.log('User to Update is', userToUpdate)
             userToUpdate.festivals.push(req.params.id)
             User.create(userToUpdate)
         })
-    })
     .then(()=>{
         res.redirect(`/festivals/${req.params.id}`)
 
@@ -99,4 +92,17 @@ router.get('/festivals/:id/fav/', (req, res)=>{
     .catch(err=> console.log('An error occured while adding to fav:', err))
 })
 
+router.get('/festivals/:id/unfav/', (req, res)=>{
+    
+        User.findById(req.session.currentUser._id)
+        .then(userToUpdate=>{
+            console.log('User to Update is', userToUpdate)
+            userToUpdate.festivals.pull(req.params.id)
+            User.create(userToUpdate)
+        })
+    .then(()=>{
+        res.redirect(`/festivals/${req.params.id}`)
+    })
+    .catch(err=> console.log('An error occured while adding to fav:', err))
+})
 module.exports = router

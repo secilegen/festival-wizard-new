@@ -9,8 +9,10 @@
 {{#if userInfo}}
 <div class="btn-group">
     <a href="/festivals/{{_id}}/fav/">Add Festival to Favorites</a>
+    <a href="/festivals/{{_id}}/unfav/">Remove Festival from Favorites</a>
   </div>
 {{/if}}
+
 {{#if userInfo.isAdmin}}
   <div class="btn-group">
     <a href="/festivals/{{_id}}/edit/">Edit Festival</a>

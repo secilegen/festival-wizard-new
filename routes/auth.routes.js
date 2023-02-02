@@ -62,9 +62,13 @@ router.post('/login', isLoggedOut, (req,res)=>{
 })
 
 router.get('/profile', isLoggedIn, (req,res)=>{
-    let data = {userInfo: req.session.currentUser}
-
-      res.render('user/profile', data)     
+    User.findById(req.session.currentUser._id)
+    .populate('festivals')
+    .then((profileInfo)=>{
+        console.log('Profile Info is:', profileInfo)
+        res.render('user/profile', profileInfo)     
+    })
+   
 })
 
 router.post('/logout', isLoggedIn, (req,res,next)=>{
