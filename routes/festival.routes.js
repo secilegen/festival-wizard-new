@@ -28,13 +28,13 @@ router.get('/festivals/list',(req,res)=>{
 
 router.get('/festivals/:festivalId', (req,res)=>{
     console.log('Req.params is:', req.params)
-    Festival.findById(req.params.festivalId)
+    Festival.findOne({_id: req.params.festivalId})
     .then((festivalDetails)=>{
         console.log(festivalDetails)
-        res.render('festivals/festival-detail', festivalDetails)
+        res.render('festivals/festival-details', festivalDetails)
     })
     .catch(err=>console.log('Error getting the festival detail is:', err))
-})
+  })
 
 router.get('/delete-festival/:id', (req, res)=>{
     const festivalId = req.params.id

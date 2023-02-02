@@ -6,10 +6,6 @@ const isLoggedOut = require("../middleware/isLoggedOut");
 const isLoggedIn = require("../middleware/isLoggedIn");
 const saltRounds = 10
 
-// const adminMail = "admin@admin.com"
-// const adminPassword = "1234"  
-
-
 router.get('/sign-up', isLoggedOut, (req,res)=>{
     res.render('auth/sign-up') 
 })
