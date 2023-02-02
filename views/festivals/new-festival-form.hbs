@@ -8,13 +8,13 @@
 
                 <hr>
 
-                <form action="/festivals/create" method="POST">
+                <form action="/festivals/create" method="POST" enctype="multipart/form-data">
                     <label>
                         <b>Name:</b> <input type="text" name="name" placeholder="Festival name">
                     </label><br><br>
 
                     <label>
-                        <b>Image:</b> <input type="text" name="imageURL" placeholder="Add a link to a file">
+                        <b>Upload Image:</b> <input type="file" name="imageURL" placeholder="Add a link to a file">
                     </label><br><br>
 
                     <label>

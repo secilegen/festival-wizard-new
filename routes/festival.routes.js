@@ -1,14 +1,19 @@
 const router = require('express').Router()
 const mongoose = require('mongoose')
 const Festival = require('../models/Festival.model')
+const User = require('../models/User.model')
+const isLoggedOut = require("../middleware/isLoggedOut");
+const isLoggedIn = require("../middleware/isLoggedIn");
+const { userInfo } = require('os');
+const fileUploader = require('../config/cloudinary.config')
 
 router.get('/festivals/create',(req,res)=>{
     res.render('festivals/new-festival-form')
 })
 
-router.post('/festivals/create',(req,res)=>{
-    const {name,imageURL,startDate,endDate,country, city, address,currency,minPrice,maxPrice,website,mustKnow,genre} = req.body
-    Festival.create({name:name, imageURL: imageURL, startDate: startDate, endDate:endDate, location: {city:city, country:country, address:address}, currency: currency, minPrice: minPrice,maxPrice: maxPrice,website: website,mustKnow: mustKnow,genre:genre })
+router.post('/festivals/create', fileUploader.single('imageURL'),(req,res)=>{
+    const {name,startDate,endDate,country, city, address,currency,minPrice,maxPrice,website,mustKnow,genre} = req.body
+    Festival.create({name, imageURL: req.file.path, startDate, endDate, location: {city, country, address}, currency, minPrice,maxPrice, website, mustKnow,genre })
     .then((createdFestival)=>{  
         console.log('Created festival is: ', createdFestival)
         res.redirect('/festivals/list')
@@ -28,6 +33,7 @@ router.get('/festivals/list',(req,res)=>{
 
 router.get('/festivals/:festivalId', (req,res)=>{
     console.log('Req.params is:', req.params)
+
     Festival.findOne({_id: req.params.festivalId})
     .then((festivalDetails)=>{
         console.log(festivalDetails)
@@ -53,14 +59,44 @@ router.get('/festivals/:id/edit/', (req,res)=>{
     .catch(err=>console.log('Error occured retrieving the data to edit festival:', err))
 })
 
-router.post('/festivals/:id/edit', (req,res)=>{
+router.post('/festivals/:id/edit', fileUploader.single('imageURL'), (req,res)=>{
 
-    const {name,imageURL,startDate,endDate,country, city, address,currency,minPrice,maxPrice,website,mustKnow,genre} = req.body
-    Festival.findByIdAndUpdate(req.params.id, {name:name, imageURL: imageURL, startDate: startDate, endDate:endDate, location: {city:city, country:country, address:address}, currency: currency, minPrice: minPrice,maxPrice: maxPrice,website: website,mustKnow: mustKnow,genre:genre })
+    const {name,existingImage,startDate,endDate,country, city, address,currency,minPrice,maxPrice,website,mustKnow,genre} = req.body
+
+    let imageURL;
+    if (req.file) {
+      imageURL = req.file.path;
+    } else {
+      imageURL = existingImage;
+    }
+
+    Festival.findByIdAndUpdate(req.params.id, {name, imageURL, startDate, endDate, location: {city, country, address}, currency, minPrice,maxPrice,website,mustKnow,genre})
     .then((festivalToUpdate)=>{
         res.redirect(`/festivals/${festivalToUpdate._id}`)
     })
     .catch(err=>console.log('Editing error is:', err))
+})
+
+router.get('/festivals/:id/fav/', (req, res)=>{
+    let favFestival;
+    Festival.findById(req.params.id)
+    .then((festivalToFav)=>{
+        console.log('Festival to Fav is:', festivalToFav)
+        favFestival = festivalToFav
+    })
+    .then(()=>{
+        User.findById(req.session.currentUser._id)
+        .then(userToUpdate=>{
+            console.log('User to Update is', userToUpdate)
+            userToUpdate.festivals.push(req.params.id)
+            User.create(userToUpdate)
+        })
+    })
+    .then(()=>{
+        res.redirect(`/festivals/${req.params.id}`)
+
+    })
+    .catch(err=> console.log('An error occured while adding to fav:', err))
 })
 
 module.exports = router
