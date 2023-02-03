@@ -31,35 +31,45 @@ router.get('/festivals/list',(req,res)=>{
     .catch(err=>console.log('Error occured retrieving all festivals:', err))
 })
 
-router.get('/festivals/:festivalId', (req,res)=>{
-    console.log('Req.params is:', req.params)
-
-    Festival.findOne({_id: req.params.festivalId})
-    .then((festivalDetails)=>{
-        console.log(festivalDetails)
-        res.render('festivals/festival-details', festivalDetails)
-    })
-    .catch(err=>console.log('Error getting the festival detail is:', err))
-  })
-
-//   router.get('/festivals/:festivalId', (req,res)=>{
+// router.get('/festivals/:festivalId', (req,res)=>{
 //     console.log('Req.params is:', req.params)
-//     let profileInfo;
 
-//     User.findById(req.session.currentUser._id)
-//     .then((userFromDB)=>{
-//         profileInfo = userFromDB
-//         console.log('Profile Info is:', profileInfo)
-//     })
-//     .then(()=>{
-//         Festival.findOne({_id: req.params.festivalId})
-//         .then((festivalDetails)=>{
-//             console.log(festivalDetails)
-//             res.render('festivals/festival-details', {festivalDetails, profileInfo})
-//     })
+//     Festival.findOne({_id: req.params.festivalId})
+//     .then((festivalDetails)=>{
+//         console.log(festivalDetails)
+//         res.render('festivals/festival-details', festivalDetails)
 //     })
 //     .catch(err=>console.log('Error getting the festival detail is:', err))
 //   })
+
+  router.get('/festivals/:festivalId', (req,res)=>{
+    console.log('Req.params is:', req.params)
+    let isIncludingFav;
+
+    User.findById(req.session.currentUser._id)
+    .then((userFromDB)=>{
+        console.log('User from DB Festivals is', userFromDB.festivals)
+        for (let i=0; i< userFromDB.festivals.length; i++) {
+            if (userFromDB.festivals.length == 0) {
+                isIncludingFav = false
+                return;
+            }
+            else if (userFromDB.festivals[i] == req.params.festivalId) {
+                isIncludingFav = true;
+                return;
+            }
+        }
+        console.log('Does it include Fav?:', isIncludingFav)
+    })
+    .then(()=>{
+        Festival.findOne({_id: req.params.festivalId})
+        .then((festivalDetails)=>{
+            console.log(festivalDetails)
+            res.render('festivals/festival-details', {festivalDetails, isIncludingFav})
+    })
+    })
+    .catch(err=>console.log('Error getting the festival detail is:', err))
+  })
 
 
 router.get('/delete-festival/:id', (req, res)=>{
