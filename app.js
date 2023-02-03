@@ -29,6 +29,7 @@ app.locals.appTitle = `${capitalize(projectName)} created with IronLauncher`;
 app.use( (req,res,next)=> {
   app.locals.userInfo = req.session.currentUser
   next()
+
 })
 
 // 👇 Start handling routes here

@@ -1,4 +1,5 @@
 const express = require('express');
+const Festival = require('../models/Festival.model');
 const router = express.Router();
 
 /* GET home page */

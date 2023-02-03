@@ -7,9 +7,7 @@ const isLoggedIn = require("../middleware/isLoggedIn");
 const saltRounds = 10
 
 router.get('/sign-up', isLoggedOut, (req,res)=>{
-    // data = {userInSession: req.session.currentUser}
-    res.render('auth/sign-up')
-    
+    res.render('auth/sign-up') 
 })
 
 router.post('/sign-up', isLoggedOut, (req,res)=>{
@@ -51,8 +49,10 @@ router.post('/login', isLoggedOut, (req,res)=>{
             res.render('auth/login', {errorMessage: 'User not found. Please sign up'})
         }
         else if(bcrypt.compareSync(password, user.passwordHash)){
-            req.session.currentUser = user
+            req.session.currentUser = user.toObject()
+            delete req.session.currentUser.passwordHash
             res.redirect('/profile')
+            // console.log("email: ", req.body.email, "password: ", req.body.password)
         }
         else {
             res.render('auth/login', {errorMessage: 'Incorrect password'})
@@ -63,7 +63,8 @@ router.post('/login', isLoggedOut, (req,res)=>{
 
 router.get('/profile', isLoggedIn, (req,res)=>{
     let data = {userInfo: req.session.currentUser}
-    res.render('user/profile', data)
+
+      res.render('user/profile', data)     
 })
 
 router.post('/logout', isLoggedIn, (req,res,next)=>{
@@ -72,5 +73,10 @@ router.post('/logout', isLoggedIn, (req,res,next)=>{
         res.redirect('/login');
     });
 })
+
+
+
+
+
 
 module.exports = router
