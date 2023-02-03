@@ -4,12 +4,19 @@
 <p>This is your profile page</p>
 
   {{#if userInfo.isAdmin}}
-  <p><b>You are an admin</b></p>
+    <p><b>You are an admin</b></p>
   {{/if}}
+
 <h2>My Favorites</h2>
-{{#each festivals}}
-<h4>{{name}}</h4>
-{{/each}}
+
+  {{#if festivals}}
+      {{#each festivals}}
+        <h4>{{name}}</h4>
+      {{/each}}
+  {{else}}
+        <h4>You haven't added any festivals on your favorites list. See all festivals to start!</h4>
+        <a href="/festivals/list">See Festivals</a> <span> 
+  {{/if}}
 {{else}}
 <p>You are not logged in</p>
 {{/if}}

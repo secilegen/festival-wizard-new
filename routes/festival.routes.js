@@ -42,6 +42,26 @@ router.get('/festivals/:festivalId', (req,res)=>{
     .catch(err=>console.log('Error getting the festival detail is:', err))
   })
 
+//   router.get('/festivals/:festivalId', (req,res)=>{
+//     console.log('Req.params is:', req.params)
+//     let profileInfo;
+
+//     User.findById(req.session.currentUser._id)
+//     .then((userFromDB)=>{
+//         profileInfo = userFromDB
+//         console.log('Profile Info is:', profileInfo)
+//     })
+//     .then(()=>{
+//         Festival.findOne({_id: req.params.festivalId})
+//         .then((festivalDetails)=>{
+//             console.log(festivalDetails)
+//             res.render('festivals/festival-details', {festivalDetails, profileInfo})
+//     })
+//     })
+//     .catch(err=>console.log('Error getting the festival detail is:', err))
+//   })
+
+
 router.get('/delete-festival/:id', (req, res)=>{
     const festivalId = req.params.id
     Festival.findByIdAndDelete(festivalId)
