@@ -8,7 +8,6 @@ const Festival = require('../models/Festival.model')
 const countries = require("../utils/countries")
 var errorType
 var message
-var defaultCountry
 
 router.get('/festivals/create',(req,res)=>{
     res.render('festivals/new-festival-form', {countries})
@@ -17,14 +16,10 @@ router.get('/festivals/create',(req,res)=>{
 router.post('/festivals/create',(req,res)=>{
 
     const inputChecked = checkInput(req)
-    console.log("req.body create ", req.body)
-
-    console.log("inputChecked", inputChecked.errorMessage)
 
     if (inputChecked.errorMessage) {
         inputChecked.oldData = req.body
-        defaultCountry = req.body.country
-        return res.render("festivals/new-festival-form", inputChecked)
+        res.render("festivals/new-festival-form", inputChecked)
     }
     
     else {
@@ -59,6 +54,7 @@ router.get('/festivals/:festivalId', (req,res)=>{
 
 router.get('/delete-festival/:id', (req, res)=>{
     const festivalId = req.params.id
+
     Festival.findByIdAndDelete(festivalId)
     .then((festivalToDelete)=>{
         res.redirect('/festivals/list')
@@ -70,31 +66,44 @@ router.get('/festivals/:id/edit/', (req,res, next)=>{
 
     Festival.findById(req.params.id)
     .then((festivalToEdit)=>{
-        let countryLeft = countries.filter(country => country === festivalToEdit.location.country)
-        res.render('festivals/edit-festival', {countries, festivalToEdit, countryLeft})
-        console.log("festivalToEdit.name", festivalToEdit.name)
+        res.render('festivals/edit-festival', {countries, festivalToEdit})
     })
     .catch(err=>console.log('Error occured retrieving the data to edit festival:', err))
-
 })
 
  router.post('/festivals/:id/edit', (req,res)=>{
 
     const inputChecked = checkInput(req)
-    console.log("req.body", req.body)
-    console.log("inputChecked", inputChecked.errorMessage)
 
     if (inputChecked.errorMessage) {
-         console.log("ERROR", inputChecked.errorMessage)
-         res.render("festivals/edit-festival", inputChecked)
+
+        let festivalToEdit = {
+            name: req.body.name,
+            startDate: req.body.startDate,
+            endDate: req.body.endDate,
+            currency: req.body.currency,
+            minPrice: req.body.minPrice,
+            maxPrice: req.body.maxPrice,
+            website: req.body.website,
+            mustKnow: req.body.mustKnow,
+            genre: req.body.genre,
+            artists: req.body.artists,
+            image: req.body.image,
+            _id: req.params.id,
+            location: {
+                city: req.body.city,
+                address: req.body.address,
+                country: req.body.country,
+            }
+        }
+
+        res.render("festivals/edit-festival", { festivalToEdit, countries: inputChecked.countries, errorMessage: inputChecked.errorMessage, errorType: inputChecked.errorType })
      }
      else {
-        console.log("req.body", req.body)
         const {name,imageURL,startDate,endDate,country, city, address,currency,minPrice,maxPrice,website,mustKnow,genre} = req.body
         Festival.findByIdAndUpdate(req.params.id, {name:name, imageURL: imageURL, startDate: startDate, endDate:endDate, location: {city:city, country:country, address:address}, currency: currency, minPrice: minPrice,maxPrice: maxPrice,website: website,mustKnow: mustKnow,genre:genre })
         .then((festivalToUpdate)=>{
-            console.log("festivalToUpdate.name", festivalToUpdate.name)
-
+            console.log("genre ", festivalToUpdate.genre)
             res.redirect('/festivals/list')
                 // res.redirect(`/festivals/${festivalToUpdate._id}`)
             })
@@ -104,7 +113,6 @@ router.get('/festivals/:id/edit/', (req,res, next)=>{
 
 
 function checkInput(req) {
-    console.log("Country: ", req.body.country)
 
     if (!req.body.name) {
         message = "You must enter a name for your Festival"
@@ -128,7 +136,7 @@ function checkInput(req) {
     }
     
     else if (req.body.minPrice && !req.body.maxPrice){
-        message = "Maximum Price has been set to " + req.body.minPrice
+        message = "Maximum Price has been set to " + req.body.minPrice 
         errorType = "warning"
         req.body.maxPrice = req.body.minPrice
     }
@@ -157,6 +165,10 @@ function checkInput(req) {
         message = "End Date cannot be before the Start Date. End Date has been set to " + req.body.startDate
         errorType = "warning"
         req.body.endDate = req.body.startDate
+    }
+    else {
+        message = ""
+        errorType = ""
     }
 
     return {countries, errorMessage: message, errorType, oldData: req.body} 

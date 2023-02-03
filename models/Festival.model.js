@@ -10,7 +10,7 @@ const festivalSchema = new Schema (
         imageURL: {
             type: String,
             trim: true,
-            default: 'imageURL'
+            // default: 'imageURL'
         },
         startDate: {
             type: String,
@@ -55,6 +55,7 @@ const festivalSchema = new Schema (
         },
         genre: {
             type: [String],
+            // type: String,
             enum: ['Rock', 'Pop', 'Electronic', 'Folk', 'Techno', 'Classical']
         },
         users: [{type: Schema.Types.ObjectId, ref: "User"}]

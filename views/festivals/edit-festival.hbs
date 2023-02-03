@@ -7,8 +7,8 @@
                 <h1>Edit {{festivalToEdit.name}}</h1>
 
                 <hr>
-                {{!-- <form action="/festivals/{{festivalToEdit._id}}/edit/" --}}
                 <form action="/festivals/{{festivalToEdit._id}}/edit/" method="POST">
+                {{!-- <form action="/festivals/{{OldData._id}}/edit/" method="POST"> --}}
                     <label>
                         <b>Name:</b> <input type="text" name="name" value="{{festivalToEdit.name}}">
                         {{!-- <b>Name:</b> <input type="text" name="name" value="{{oldData.name}}"> --}}
@@ -37,8 +37,9 @@
                     <label>
                         <b>Country:</b> 
                         <select id="country" name="country" class="">
-                            <option value={{countryLeft}} selected>{{countryLeft}}</option>
-                            {{!-- <option value={{oldData.country}} selected>{{oldData.country}}</option> --}}
+                            {{#if festivalToEdit.location.country}}
+                              <option value={{festivalToEdit.location.country}} selected>{{festivalToEdit.location.country}}</option>
+                            {{/if}}                           
                             {{#each countries}}
                                 <option value={{this}}>{{this}}</option>
                             {{/each}}
@@ -53,12 +54,20 @@
                     </label><br><br>
 
                     <label>
-                        <b>Address:</b> <input type="text" name="address" value="{{festivalToEdit.location.address}}">                      
+                        <b>Address:</b> <input type="text" name="address" value="{{festivalToEdit.location.address}}">
                         {{!-- <b>Address:</b> <input type="text" name="address" value="{{oldData.address}}"> --}}
                     </label><br><br>
 
                     <label>
-                        <b>Currency:</b> <input type="text" name="currency" value="{{festivalToEdit.currency}}">
+                        <b>Currency:</b> 
+                        {{!-- <input type="text" name="currency" value="{{festivalToEdit.currency}}"> --}}
+                        <select name="currency">
+                            <option value={{festivalToEdit.currency}} selected>{{festivalToEdit.currency}}</option>
+                            <option value="EUR">EUR</option>
+                            <option value="USD">USD</option>
+                            <option value="GBP">GBP</option>
+                        </select>
+
                         {{!-- <b>Currency:</b> <input type="text" name="currency" value="{{oldData.currency}}"> --}}
                     </label><br><br>
 
@@ -83,11 +92,23 @@
                     </label><br><br>
 
                     <label>
-                        <b>Genre:</b> <input type="text" name="genre" value="{{festivalToEdit.genre}}">
+                        <b>Genre:</b> 
+                        {{!-- <input type="text" name="genre" value="{{festivalToEdit.genre}}" multiple> --}}
+                        <select name="genre" multiple>
+                            {{#each festivalToEdit.genre}}
+                              <option value={{this}} selected>{{this}}</option>
+                            {{/each}}
+                            <option value="Rock">Rock</option>
+                            <option value="Pop">Pop</option>
+                            <option value="Electronic">Electronic</option>
+                            <option value="Folk">Folk</option>
+                            <option value="Techno">Techno</option>
+                            <option value="Classical">Classical</option>
+                        </select>
                         {{!-- <b>Genre:</b> <input type="text" name="genre" value="{{oldData.genre}}"> --}}
                     </label><br><br>
 
-                    <button type="submit"  class="btn-dark btn"> Edit Festival </button>             
+                    <button type="submit"  class="btn-dark btn"> Edit Festival </button>
                     {{!-- <input type="submit" value="FestivalEdit" class="btn-dark btn"> --}}
 
                     {{#if errorMessage}}
