@@ -55,7 +55,6 @@ const festivalSchema = new Schema (
         },
         genre: {
             type: [String],
-            // type: String,
             enum: ['Rock', 'Pop', 'Electronic', 'Folk', 'Techno', 'Classical']
         },
         users: [{type: Schema.Types.ObjectId, ref: "User"}]
