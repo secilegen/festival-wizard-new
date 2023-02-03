@@ -10,7 +10,7 @@ const festivalSchema = new Schema (
         imageURL: {
             type: String,
             trim: true,
-            default: 'imageURL'
+            // default: 'imageURL'
         },
         startDate: {
             type: String,

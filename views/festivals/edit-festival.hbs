@@ -4,70 +4,116 @@
         <div class="row justify-content-center">
             <div class="col-md-6">
 
-                <h1>Edit Festival</h1>
+                <h1>Edit {{festivalToEdit.name}}</h1>
 
                 <hr>
-
-                <form action="/festivals/{{_id}}/edit/" method="POST">
+                <form action="/festivals/{{festivalToEdit._id}}/edit/" method="POST">
+                {{!-- <form action="/festivals/{{OldData._id}}/edit/" method="POST"> --}}
                     <label>
-                        <b>Name:</b> <input type="text" name="name" value="{{name}}">
+                        <b>Name:</b> <input type="text" name="name" value="{{festivalToEdit.name}}">
+                        {{!-- <b>Name:</b> <input type="text" name="name" value="{{oldData.name}}"> --}}
                     </label><br><br>
 
                     <label>
-                        <b>Image:</b> <input type="text" name="image"  value="{{imageURL}}">
-                    </label><br><br>
+                        <b>Image:</b> <input type="text" name="image"  value="{{festivalToEdit.imageURL}}">
+                        {{!-- <b>Image:</b> <input type="text" name="image"  value="{{oldData.imageURL}}"> --}}
+                    </label><br><br> 
 
                     <label>
-                        <b>Start Date:</b> <input type="date" name="startDate" value="{{startDate}}">
+                        <b>Start Date:</b> <input type="date" name="startDate" value="{{festivalToEdit.startDate}}">
+                        {{!-- <b>Start Date:</b> <input type="date" name="startDate" value="{{oldData.startDate}}"> --}}
                     </label>
 
                     <label>
-                        <b>End Date:</b> <input type="date" name="endDate" value="{{endDate}}">
+                        <b>End Date:</b> <input type="date" name="endDate" value="{{festivalToEdit.endDate}}">
+                        {{!-- <b>End Date:</b> <input type="date" name="endDate" value="{{oldData.endDate}}"> --}}
                     </label><br><br>
 
                     <label>
-                        <b>Artists:</b> <input type="text" name="artists" value="{{artists}}">
+                        Artists:</b> <input type="text" name="artists" value="{{festivalToEdit.artists}}">
+                        {{!-- <b>Artists:</b> <input type="text" name="artists" value="{{oldData.artists}}"> --}}
                     </label><br><br>
 
                     <label>
-                        <b>Country:</b> <input type="text" name="country" value="{{location.country}}">
+                        <b>Country:</b> 
+                        <select id="country" name="country" class="">
+                            {{#if festivalToEdit.location.country}}
+                              <option value={{festivalToEdit.location.country}} selected>{{festivalToEdit.location.country}}</option>
+                            {{/if}}                           
+                            {{#each countries}}
+                                <option value={{this}}>{{this}}</option>
+                            {{/each}}
+                        </select> 
+
                     </label>  <br><br>  
 
                     <label>
-                        <b>City:</b> <input type="text" name="city" value="{{location.city}}">
+                        <b>City:</b> <input type="text" name="city" value="{{festivalToEdit.location.city}}">
+                        {{!-- <b>City:</b> <input type="text" name="city" value="{{oldData.city}}"> --}}
+
                     </label><br><br>
 
                     <label>
-                        <b>Address:</b> <input type="text" name="address" value="{{location.address}}">
+                        <b>Address:</b> <input type="text" name="address" value="{{festivalToEdit.location.address}}">
+                        {{!-- <b>Address:</b> <input type="text" name="address" value="{{oldData.address}}"> --}}
                     </label><br><br>
 
                     <label>
-                        <b>Currency:</b> <input type="text" name="currency" value="{{currency}}">
+                        <b>Currency:</b> 
+                        {{!-- <input type="text" name="currency" value="{{festivalToEdit.currency}}"> --}}
+                        <select name="currency">
+                            <option value={{festivalToEdit.currency}} selected>{{festivalToEdit.currency}}</option>
+                            <option value="EUR">EUR</option>
+                            <option value="USD">USD</option>
+                            <option value="GBP">GBP</option>
+                        </select>
+
+                        {{!-- <b>Currency:</b> <input type="text" name="currency" value="{{oldData.currency}}"> --}}
                     </label><br><br>
 
                     <label>
-                        <b>Min Price:</b> <input type="number" name="minPrice" value="{{minPrice}}">
+                        <b>Min Price:</b> <input type="number" name="minPrice" value="{{festivalToEdit.minPrice}}">
+                        {{!-- <b>Min Price:</b> <input type="number" name="minPrice" value="{{oldData.minPrice}}"> --}}
                     </label>
 
                     <label>
-                        <b>Max Price:</b> <input type="number" name="maxPrice" value="{{maxPrice}}">
+                        <b>Max Price:</b> <input type="number" name="maxPrice" value="{{festivalToEdit.maxPrice}}">
+                        {{!-- <b>Max Price:</b> <input type="number" name="maxPrice" value="{{oldData.maxPrice}}"> --}}
                     </label><br><br>
 
                     <label>
-                        <b>Website:</b> <input type="text" name="website" value="{{website}}">
+                        <b>Website:</b> <input type="text" name="website" value="{{festivalToEdit.website}}">
+                        {{!-- <b>Website:</b> <input type="text" name="website" value="{{oldData.website}}"> --}}
                     </label><br><br>
 
                     <label>
-                        <b>Key fact:</b> <input type="text" name="mustKnow" value="{{mustKnow}}">
+                        <b>Key fact:</b> <input type="text" name="mustKnow" value="{{festivalToEdit.mustKnow}}">
+                        {{!-- <b>Key fact:</b> <input type="text" name="mustKnow" value="{{oldData.mustKnow}}"> --}}
                     </label><br><br>
 
                     <label>
-                        <b>Genre:</b> <input type="text" name="genre" value="{{genre}}">
+                        <b>Genre:</b> 
+                        {{!-- <input type="text" name="genre" value="{{festivalToEdit.genre}}" multiple> --}}
+                        <select name="genre" multiple>
+                            {{#each festivalToEdit.genre}}
+                              <option value={{this}} selected>{{this}}</option>
+                            {{/each}}
+                            <option value="Rock">Rock</option>
+                            <option value="Pop">Pop</option>
+                            <option value="Electronic">Electronic</option>
+                            <option value="Folk">Folk</option>
+                            <option value="Techno">Techno</option>
+                            <option value="Classical">Classical</option>
+                        </select>
+                        {{!-- <b>Genre:</b> <input type="text" name="genre" value="{{oldData.genre}}"> --}}
                     </label><br><br>
 
-                                       
+                    <button type="submit"  class="btn-dark btn"> Edit Festival </button>
+                    {{!-- <input type="submit" value="FestivalEdit" class="btn-dark btn"> --}}
 
-                    <input type="submit" value="Edit Festival" class="btn-dark btn">
+                    {{#if errorMessage}}
+                      <p class={{errorType}}>{{errorMessage}}</p>
+                    {{/if}}
                 </form>
 
             </div>
