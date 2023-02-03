@@ -49,7 +49,7 @@ router.get('/festivals/:festivalId', (req,res)=>{
     Festival.findOne({_id: req.params.festivalId})
     Festival.findById(req.params.festivalId)
     .then((festivalDetails)=>{
-        res.render('festivals/festival-detail', festivalDetails)
+        res.render('festivals/festival-details', festivalDetails)
     })
     .catch(err=>console.log('Error getting the festival detail is:', err))
   })
