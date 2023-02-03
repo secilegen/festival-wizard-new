@@ -133,6 +133,6 @@ router.get('/festivals/:id/unfav/', (req, res)=>{
     .then(()=>{
         res.redirect(`/festivals/${req.params.id}`)
     })
-    .catch(err=> console.log('An error occured while adding to fav:', err))
+    .catch(err=> console.log('An error occured while removing from fav:', err))
 })
 module.exports = router
