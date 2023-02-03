@@ -15,9 +15,12 @@
                     </label><br><br>
 
                     <label>
-                        <b>Image:</b> <input type="text" name="image"  value="{{festivalToEdit.imageURL}}">
-                        {{!-- <b>Image:</b> <input type="text" name="image"  value="{{oldData.imageURL}}"> --}}
-                    </label><br><br> 
+
+                        <b>Image:</b> <input type="file" name="imageURL"  value="{{festivalToEdit.imageURL}}">
+                                     <input type="text" name="existingImage" hidden value="{{imageURL}}">
+
+                    </label><br><br>
+
 
                     <label>
                         <b>Start Date:</b> <input type="date" name="startDate" value="{{festivalToEdit.startDate}}">

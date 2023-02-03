@@ -1,13 +1,25 @@
-{{name}}
-<div><img src="{{imageURL}}" alt="{{name}}"></div>
-<div>Artists: {{artists}}</div>
-<div>Dates: {{startDate}} - {{endDate}}</div>
+{{festivalDetails.name}}
+<div><img src="{{festivalDetails.imageURL}}" alt="{{festivalDetails.name}}" /></div>
+<div>Artists: {{festivalDetails.artists}}</div>
+<div>Dates: {{festivalDetails.startDate}} - {{festivalDetails.endDate}}</div>
 
-<div>Ticket Prices: {{currency}} {{minPrice}}-{{maxPrice}}</div>
-<div>Tips: {{mustKnow}}</div>
-<div>Genre: {{genre}}</div>
+<div>Ticket Prices: {{festivalDetails.currency}} {{festivalDetails.minPrice}}-{{festivalDetails.maxPrice}}</div>
+<div>Tips: {{festivalDetails.mustKnow}}</div>
+<div>Genre: {{festivalDetails.genre}}</div>
+{{#if userInfo}}
+<div class="btn-group">
+    {{#if isIncludingFav}}
+    <a href="/festivals/{{festivalDetails._id}}/unfav/">Remove Festival from Favorites</a>
+    {{else}}
+    <a href="/festivals/{{festivalDetails._id}}/fav/">Add Festival to Favorites</a>
+    {{/if}}
+  </div>
+{{/if}}
 
- <div class="btn-group">
-<a href="/festivals/{{_id}}/edit/">Edit Festival</a>
-<a href="/delete-festival/{{_id}}">Delete Festival</a>
-</div>
+{{#if userInfo.isAdmin}}
+  <div class="btn-group">
+    <a href="/festivals/{{_id}}/edit/">Edit Festival</a>
+    <a href="/delete-festival/{{_id}}">Delete Festival</a>
+  </div>
+{{/if}}
+
