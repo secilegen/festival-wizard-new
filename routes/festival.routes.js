@@ -38,7 +38,7 @@ router.post(
 
       Festival.create({
         name,
-        imageURL: req.file.path,
+        imageURL: req.file?.path,
         startDate,
         endDate,
         location: { city, country, address },
@@ -131,48 +131,34 @@ router.get("/festivals/:id/edit/", (req, res, next) => {
 });
 
 router.get("/festivals/:id/fav/", (req, res) => {
-    Festival.findByIdAndUpdate(req.params.id, { $inc: {"favorited" : 1} })
-    .then((festFav)=>{
-        console.log('Festival faved:', festFav)
-    })
-    .then(()=>{
-        User.findById(req.session.currentUser._id)
-            .then((userToUpdate) => {
-            console.log("User to Update is", userToUpdate);
-            userToUpdate.festivals.push(req.params.id);
-            User.create(userToUpdate);
-            })
-            .then(() => {
-            res.redirect(`/festivals/${req.params.id}`);
-            })
-            .catch((err) => console.log("An error occured while adding to fav:", err));
+  Festival.findByIdAndUpdate(req.params.id, { $inc: { favorited: 1 } })
+  .then(() => {
+      return User.findByIdAndUpdate(req.session.currentUser._id, {
+        $push: { festivals: req.params.id },
+      })
+        .then(() => {
+          res.redirect(`/festivals/${req.params.id}`);
+        })
+        .catch((err) =>
+          console.log("An error occured while adding to fav:", err)
+        );
+    }
+  );
 });
-    })
-
-        
 
 router.get("/festivals/:id/unfav/", (req, res) => {
-    Festival.findByIdAndUpdate(req.params.id, { $inc: {"favorited" : -1} })
-    .then((festUnfav)=>{
-        console.log('Festival unfaved:', festUnfav)
-    })
-    .then(()=>{
-        User.findById(req.session.currentUser._id)
-    .then((userToUpdate) => {
-      console.log("User to Update is", userToUpdate);
-      userToUpdate.festivals.pull(req.params.id);
-      User.create(userToUpdate);
-    })
+  Festival.findByIdAndUpdate(req.params.id, { $inc: { favorited: -1 } })
     .then(() => {
-      res.redirect(`/festivals/${req.params.id}`);
-    })
-    .catch((err) =>
-      console.log("An error occured while removing from fav:", err)
-    );
+      return User.findByIdAndUpdate(req.session.currentUser._id, { $pull: {festivals: req.params.id}})
+        .then(() => {
+          res.redirect(`/festivals/${req.params.id}`);
+        })
+        .catch((err) =>
+          console.log("An error occured while removing from fav:", err)
+        );
+    });
 });
-    })
 
-  
 router.post(
   "/festivals/:id/edit",
   fileUploader.single("imageURL"),
