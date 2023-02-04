@@ -8,13 +8,14 @@
 
                 <hr>
 
-                <form action="/festivals/create" method="POST">
+                <form action="/festivals/create" method="POST" enctype="multipart/form-data">
                     <label>
                         <b>Name:</b> <input   type="text" name="name" placeholder="Festival name" value="{{oldData.name}}"/>
                     </label><br><br>
 
                     <label>
-                        <b>Image:</b> <input type="text" name="imageURL" placeholder="Add a link to a file" value="{{oldData.imageURL}}">
+                        <b>Upload Image:</b> <input type="file" name="imageURL" placeholder="Add a link to a file" value="{{oldData.imageURL}}">
+
                     </label><br><br>
 
                     <label>
@@ -89,9 +90,7 @@
                             <option value="Techno">Techno</option>
                             <option value="Classical">Classical</option>
                             </select>
-                    </label><br><br>
-
-                                       
+                    </label><br><br>                                      
 
                     <input type="submit" value="Create Festival" class="btn-dark btn"><br><br>
 

@@ -1,40 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 
-   <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta http-equiv="X-UA-Compatible" content="ie=edge">
-      <title>{{appTitle}}</title>
-      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-      <link rel="stylesheet" href="/stylesheets/style.css" />
-   </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{appTitle}}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+</head>
 
-   <body>
-      <nav>
-         <ul>
-            <li id="to-right">
-            <a href="/">Home</a> <span> | </span>
+<body>
+    <nav>
+
+        <ul style="list-style: none">
+            <a href="/">
+                <img src="images/festival-wizard.png" alt="" class="logo">   
+            </a>
+
+            <li id="festival-navbar">
+
+            <a href="/festivals/list" class="festival-header"><b>FESTIVALS</b></a> <span> | </span>
 
             {{#if userInfo}}
 
-            <a href="/profile">Profile</a> <span> | </span>
-            <br>
-            <br>
-            <form id="logout-form" action="/logout" method="POST">
-               <br>
-               <button>Logout</button>
-            </form>
+                <a href="/profile"><b>Profile</b></a> <span> | </span>
+                <form id="logout-form" action="/logout" method="POST">
+                    <br>
+                    <button>Logout</button>
+                </form>
             {{else}}
-            <a href="/sign-up">Signup</a> <span> | </span>
-            <a href="/login">Login</a> <span> | </span>
+                <a href="/sign-up"><b>SIGN-UP</b></a> <span> | </span>
+                <a href="/login"><b>LOGIN</b></a> <span> | </span>
             {{/if}}
-         </ul>
-      </nav>
+        </ul>
+    </nav><br><br><br><br>
 
-      {{{body}}}
+    {{{body}}}
 
-      <script src="/js/script.js"></script>
-   </body>
+    <script src="/js/script.js"></script>
+</body>
 
 </html>

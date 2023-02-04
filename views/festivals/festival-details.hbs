@@ -1,13 +1,59 @@
-{{name}}
-<div><img src="{{imageURL}}" alt="{{name}}"></div>
-<div>Artists: {{artists}}</div>
-<div>Dates: {{startDate}} - {{endDate}}</div>
+{{#if festivalDetails.imageURL}}
+  <div style="background-image: url({{festivalDetails.imageURL}}); background-repeat: no-repeat"; class="picture-box">
+{{else}}
+  <div style="background-image: url('https://res.cloudinary.com/dl4tnpmqr/image/upload/v1675525382/festival-wizard/cdqqeprozbnvusmra06v.jpg'); background-repeat: no-repeat"; class="picture-box">
+{{/if}} 
 
-<div>Ticket Prices: {{currency}} {{minPrice}}-{{maxPrice}}</div>
-<div>Tips: {{mustKnow}}</div>
-<div>Genre: {{genre}}</div>
 
- <div class="btn-group">
-<a href="/festivals/{{_id}}/edit/">Edit Festival</a>
-<a href="/delete-festival/{{_id}}">Delete Festival</a>
+<div class="festival-box">
+  <h1>{{festivalDetails.name}}</h1>
+  <h2>{{festivalDetails.startDate}} - {{festivalDetails.endDate}}</h2>
+  {{#if festivalDetails.location.address}}{{festivalDetails.location.address}}{{/if}}
+  {{festivalDetails.location.city}}, {{festivalDetails.location.country}}
+</div>
+
+
+{{#if festivalDetails.artists}}
+<h3><span style="color: blue">with </span>{{festivalDetails.artists}}</h3>
+{{else}}
+<h3>Line up tbc</h3>
+{{/if}}
+
+{{#if festivalDetails.minPrice}}
+<h3><span style="color: blue">Tickets: </span>{{festivalDetails.currency}}{{festivalDetails.minPrice}} - {{festivalDetails.currency}}{{festivalDetails.maxPrice}}</h3>
+{{else}}
+<h3>Ticket price not yet known</h3>
+{{/if}}
+
+{{#if festivalDetails.genre}}
+<h3><span style="color: blue">Genre: </span>{{festivalDetails.genre}}</h3>
+{{/if}}
+
+{{#if festivalDetails.mustKnow}}
+<h3><span style="color: blue">Fun fact: </span>{{festivalDetails.mustKnow}}</h3>
+{{/if}}
+
+{{#if festivalDetails.website}}
+<h3><span style="color: blue">Website: </span>{{festivalDetails.website}}</h3>
+{{/if}}
+
+
+
+{{#if userInfo}}
+<div class="btn-group">
+    {{#if isIncludingFav}}
+    <a href="/festivals/{{festivalDetails._id}}/unfav/">Remove Festival from Favorites</a>
+    {{else}}
+    <a href="/festivals/{{festivalDetails._id}}/fav/">Add Festival to Favorites</a>
+    {{/if}}
+  </div>
+{{/if}}
+
+{{#if userInfo.isAdmin}}
+  <div class="btn-group">
+    <a href="/festivals/{{_id}}/edit/">Edit Festival</a>
+    <a href="/delete-festival/{{_id}}">Delete Festival</a>
+  </div>
+{{/if}}
+
 </div>

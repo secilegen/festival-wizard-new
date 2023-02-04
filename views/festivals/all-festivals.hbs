@@ -1,18 +1,43 @@
 <h1>Here are all the Festivals in our Database</h1>
 
-<div id="container"
+
+<div id="container" class="festival-list"> 
 
 {{#if allFestivals}}
 
   {{#each allFestivals}}
-    <div style="border: solid blue; padding:10px 10px 10px 10px">
-      <h2>{{name}}</h2>
 
-      <p>Date: {{startDate}} - {{endDate}} </p>
-      <p>Location: {{location}}</p>
-      <div><a href="/festivals/{{_id}}">See Details</a></div>
+    <div class="single-festival">
+      <div> 
 
-    </div><br><br>
+        {{#if imageURL}}
+          <img alt="Festival image" width=100% height=100% src="{{imageURL}}">   
+        {{else}}
+          <img alt="Festival image" width=100% height=100% src="https://res.cloudinary.com/dl4tnpmqr/image/upload/v1675525382/festival-wizard/cdqqeprozbnvusmra06v.jpg">  
+        {{/if}} 
+
+
+        <h2>{{name}}</h2>
+
+        <p><b>Date: </b>{{startDate}} - {{endDate}} </p>
+        <p><b>Location: </b>
+        {{#if location.address}} 
+          {{location.address}} 
+          <br>
+        {{/if}}        
+        {{location.country}}, {{location.city}}</p>
+        <p><b>Ticket prices: </b>
+        {{#if minPrice}}
+          {{currency}}{{minPrice}}-{{currency}}{{maxPrice}}  
+        {{else}}
+          unavailable
+        {{/if}}
+        </p>
+
+        <div><a href="/festivals/{{_id}}">See Details</a></div>
+
+      </div><br><br>
+    </div>
   {{/each}}
 {{!-- Add later 
 <a href="/Festivals/{{_id}}">Link to Book</a>
@@ -21,10 +46,4 @@
     <button>Delete Festival</button>
 </form>
 <br> --}}
-
-{{else}}
-  <p>  No festivals in the Database </p>
 {{/if}}
-
-</div>
-

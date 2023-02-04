@@ -4,6 +4,11 @@ const { reset } = require('nodemon')
 const { rawListeners } = require('../app')
 const app = require('../app')
 const Festival = require('../models/Festival.model')
+const User = require('../models/User.model')
+const isLoggedOut = require("../middleware/isLoggedOut");
+const isLoggedIn = require("../middleware/isLoggedIn");
+const { userInfo } = require('os');
+const fileUploader = require('../config/cloudinary.config')
 
 const countries = require("../utils/countries")
 var errorType
@@ -13,7 +18,8 @@ router.get('/festivals/create',(req,res)=>{
     res.render('festivals/new-festival-form', {countries})
 })
 
-router.post('/festivals/create',(req,res)=>{
+
+router.post('/festivals/create',fileUploader.single('imageURL'),(req,res)=>{
 
     const inputChecked = checkInput(req)
 
@@ -24,11 +30,11 @@ router.post('/festivals/create',(req,res)=>{
     
     else {
         const {name,imageURL,startDate,endDate,country, city, address,currency,minPrice,maxPrice,website,mustKnow,genre} = req.body
+        console.log("REQ.FILE", req.file)
     
-        Festival.create({name:name, imageURL: imageURL, startDate: startDate, endDate:endDate, location: {city:city, country:country, address:address}, currency: currency, minPrice: minPrice,maxPrice: maxPrice,website: website,mustKnow: mustKnow,genre:genre })
+        Festival.create({name, imageURL: req.file.path, startDate, endDate, location: {city, country, address}, currency, minPrice,maxPrice,website, mustKnow,genre })
         .then((createdFestival)=>{
-            res.redirect('/festivals/list')
-            // res.redirect(`/festivals/${createdFestival._id}`)
+            res.redirect(`/festivals/${createdFestival._id}`)
         })
         .catch(err=> console.log('An error occured creating the festival:', err))     
 
@@ -39,20 +45,57 @@ router.post('/festivals/create',(req,res)=>{
 router.get('/festivals/list',(req,res)=>{
     Festival.find()
     .then((allFestivals)=>{
+        console.log("allFestivals", allFestivals)
         res.render('festivals/all-festivals',{allFestivals})
     })
     .catch(err=>console.log('Error occured retrieving all festivals:', err))
 })
 
-router.get('/festivals/:festivalId', (req,res)=>{
+// router.get('/festivals/:festivalId', (req,res)=>{
+//     console.log('Req.params is:', req.params)
+
+//     Festival.findOne({_id: req.params.festivalId})
+//     .then((festivalDetails)=>{
+//         console.log(festivalDetails)
+//         res.render('festivals/festival-details', festivalDetails)
+//     })
+//     .catch(err=>console.log('Error getting the festival detail is:', err))
+//   })
+
+  router.get('/festivals/:festivalId', (req,res)=>{
     console.log('Req.params is:', req.params)
-    Festival.findOne({_id: req.params.festivalId})
-    Festival.findById(req.params.festivalId)
-    .then((festivalDetails)=>{
-        res.render('festivals/festival-details', festivalDetails)
+    console.log("ID 1", req.params.festivalId)
+    console.log("ID 2", req.session)
+    // console.log("ID 3", req.session.currentUser._id)
+
+    let isIncludingFav;
+
+    User.findById(req.session.currentUser._id)
+    .then((userFromDB)=>{
+        console.log('User from DB Festivals is', userFromDB.festivals)
+        for (let i=0; i< userFromDB.festivals.length; i++) {
+            if (userFromDB.festivals.length == 0) {
+                isIncludingFav = false
+                return;
+            }
+            else if (userFromDB.festivals[i] == req.params.festivalId) {
+                isIncludingFav = true;
+                return;
+            }
+        }
+        console.log('Does it include Fav?:', isIncludingFav)
+    })
+    .then(()=>{
+        Festival.findOne({_id: req.params.festivalId})
+        .then((festivalDetails)=>{  
+            console.log(festivalDetails)
+            res.render('festivals/festival-details', {festivalDetails, isIncludingFav})
+        })
+
     })
     .catch(err=>console.log('Error getting the festival detail is:', err))
   })
+
 
 router.get('/delete-festival/:id', (req, res)=>{
     const festivalId = req.params.id
@@ -73,7 +116,36 @@ router.get('/festivals/:id/edit/', (req,res, next)=>{
     .catch(err=>console.log('Error occured retrieving the data to edit festival:', err))
 })
 
- router.post('/festivals/:id/edit', (req,res)=>{
+router.get('/festivals/:id/fav/', (req, res)=>{
+    
+        User.findById(req.session.currentUser._id)
+        .then(userToUpdate=>{
+            console.log('User to Update is', userToUpdate)
+            userToUpdate.festivals.push(req.params.id)
+            User.create(userToUpdate)
+        })
+    .then(()=>{
+        res.redirect(`/festivals/${req.params.id}`)
+
+    })
+    .catch(err=> console.log('An error occured while adding to fav:', err))
+})
+
+router.get('/festivals/:id/unfav/', (req, res)=>{
+    
+        User.findById(req.session.currentUser._id)
+        .then(userToUpdate=>{
+            console.log('User to Update is', userToUpdate)
+            userToUpdate.festivals.pull(req.params.id)
+            User.create(userToUpdate)
+        })
+    .then(()=>{
+        res.redirect(`/festivals/${req.params.id}`)
+    })
+    .catch(err=> console.log('An error occured while removing from fav:', err))
+})
+
+ router.post('/festivals/:id/edit',fileUploader.single('imageURL'), (req,res)=>{
 
     const inputChecked = checkInput(req)
 
@@ -90,6 +162,7 @@ router.get('/festivals/:id/edit/', (req,res, next)=>{
             mustKnow: req.body.mustKnow,
             genre: req.body.genre,
             artists: req.body.artists,
+            // also fix this acc to cloudinary
             image: req.body.image,
             _id: req.params.id,
             location: {
@@ -102,12 +175,17 @@ router.get('/festivals/:id/edit/', (req,res, next)=>{
         res.render("festivals/edit-festival", { festivalToEdit, countries: inputChecked.countries, errorMessage: inputChecked.errorMessage, errorType: inputChecked.errorType })
      }
      else {
-        const {name,imageURL,startDate,endDate,country, city, address,currency,minPrice,maxPrice,website,mustKnow,genre} = req.body
-        Festival.findByIdAndUpdate(req.params.id, {name:name, imageURL: imageURL, startDate: startDate, endDate:endDate, location: {city:city, country:country, address:address}, currency: currency, minPrice: minPrice,maxPrice: maxPrice,website: website,mustKnow: mustKnow,genre:genre })
+        const {name,existingImage,startDate,endDate,country, city, address,currency,minPrice,maxPrice,website,mustKnow,genre} = req.body
+            let imageURL;
+            if (req.file) {
+              imageURL = req.file.path;
+            } else {
+              imageURL = existingImage;
+            }
+    
+        Festival.findByIdAndUpdate(req.params.id, {name, imageURL, startDate, endDate, location: {city, country, address}, currency, minPrice,maxPrice,website,mustKnow,genre })
         .then((festivalToUpdate)=>{
-            console.log("genre ", festivalToUpdate.genre)
-            res.redirect('/festivals/list')
-                // res.redirect(`/festivals/${festivalToUpdate._id}`)
+            res.redirect(`/festivals/${festivalToUpdate._id}`)
             })
         .catch(err=>console.log('Editing error is:', err))
     }    
@@ -175,7 +253,5 @@ function checkInput(req) {
 
     return {countries, errorMessage: message, errorType, oldData: req.body} 
 }
-
-
 
 module.exports = router
