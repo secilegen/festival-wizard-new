@@ -1,15 +1,7 @@
 const router = require("express").Router();
-const mongoose = require("mongoose");
-const { reset } = require("nodemon");
-const { rawListeners } = require("../app");
-const app = require("../app");
 const Festival = require("../models/Festival.model");
 const User = require("../models/User.model");
-const isLoggedOut = require("../middleware/isLoggedOut");
-const isLoggedIn = require("../middleware/isLoggedIn");
-const { userInfo } = require("os");
 const fileUploader = require("../config/cloudinary.config");
-
 const countries = require("../utils/countries");
 var errorType;
 var message;
