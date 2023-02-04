@@ -57,7 +57,11 @@ const festivalSchema = new Schema (
             type: [String],
             enum: ['Rock', 'Pop', 'Electronic', 'Folk', 'Techno', 'Classical']
         },
-        users: [{type: Schema.Types.ObjectId, ref: "User"}]
+        users: [{type: Schema.Types.ObjectId, ref: "User"}],
+        favorited: {
+            type: Number,
+            default: 0
+    }
 },
 {
     // this second object adds extra properties: `createdAt` and `updatedAt`    
