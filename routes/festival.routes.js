@@ -32,10 +32,10 @@ router.post('/festivals/create',fileUploader.single('imageURL'),(req,res)=>{
         const {name,imageURL,startDate,endDate,country, city, address,currency,minPrice,maxPrice,website,mustKnow,genre} = req.body
     
         Festival.create({name, imageURL: req.file.path, startDate, endDate, location: {city, country, address}, currency, minPrice,maxPrice,website, mustKnow,genre })
-        .then((createdFestival)=>{
-            res.redirect(`/festivals/${createdFestival._id}`)
-        })
-        .catch(err=> console.log('An error occured creating the festival:', err))     
+    .then((createdFestival)=>{  
+        res.redirect(`/festivals/${createdFestival._id}`)
+    })
+    .catch(err=> console.log('An error occured creating the festival:', err)) 
 
     }
 })
@@ -63,8 +63,9 @@ router.get('/festivals/list',(req,res)=>{
   router.get('/festivals/:festivalId', (req,res)=>{
     console.log('Req.params is:', req.params)
     let isIncludingFav;
-
-    User.findById(req.session.currentUser._id)
+    
+    if (req.session.currentUser) {
+        User.findById(req.session.currentUser._id)
     .then((userFromDB)=>{
         console.log('User from DB Festivals is', userFromDB.festivals)
         for (let i=0; i< userFromDB.festivals.length; i++) {
@@ -81,13 +82,23 @@ router.get('/festivals/list',(req,res)=>{
     })
     .then(()=>{
         Festival.findOne({_id: req.params.festivalId})
-        .then((festivalDetails)=>{  
+        .then((festivalDetails)=>{
             console.log(festivalDetails)
             res.render('festivals/festival-details', {festivalDetails, isIncludingFav})
-        })
+    })
 
     })
     .catch(err=>console.log('Error getting the festival detail is:', err))
+
+      }  
+      else {
+        Festival.findOne({_id: req.params.festivalId})
+        .then((festivalDetails)=>{
+            console.log(festivalDetails)
+            res.render('festivals/festival-details', {festivalDetails})
+        })
+      }
+    
   })
 
 
