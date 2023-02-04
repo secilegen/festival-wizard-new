@@ -42,14 +42,22 @@ module.exports = (app) => {
   // Handles access to the favicon
   app.use(favicon(path.join(__dirname, "..", "public", "images", "favicon.ico")));
 
-  app.use(
-    session({
-      secret: process.env.SESSION_SECRET || "super hyper secret key",
-      resave: false,
-      saveUninitialized: false,
-      store: MongoStore.create({
-        mongoUrl: MONGO_URI,
-      }),
-    })
-  );
+  app.set('trust proxy', 1);
+
+    app.use(
+        session({
+            secret: process.env.SESSION_SECRET,
+            resave: true,
+            saveUninitialized: false,
+            cookie: {
+                sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+                secure: process.env.NODE_ENV === 'production',
+                httpOnly: true,
+                maxAge: 24 * 60 * 60000 
+            },
+            store: MongoStore.create({
+                mongoUrl: process.env.MONGODB_URI || 'mongodb://127.0.0.1/festival-wizard'
+            })
+        })
+    )
 };
