@@ -1,6 +1,5 @@
 const { Schema, model, default: mongoose } = require("mongoose");
 
-// TODO: Please make sure you edit the User model to whatever makes sense in this case
 const userSchema = new Schema(
   {
     email: {
@@ -32,11 +31,9 @@ const userSchema = new Schema(
       default: false
     },
 
-    // Come back to this one
     festivals: [{type: Schema.Types.ObjectId, ref: "Festival"}]
   },
   {
-    // this second object adds extra properties: `createdAt` and `updatedAt`    
     timestamps: true
   }
 );

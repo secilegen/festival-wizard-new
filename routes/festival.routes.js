@@ -33,10 +33,17 @@ router.post('/festivals/create',fileUploader.single('imageURL'),(req,res)=>{
         console.log("REQ.FILE", req.file)
     
         Festival.create({name, imageURL: req.file.path, startDate, endDate, location: {city, country, address}, currency, minPrice,maxPrice,website, mustKnow,genre })
+<<<<<<< HEAD
         .then((createdFestival)=>{
             res.redirect(`/festivals/${createdFestival._id}`)
         })
         .catch(err=> console.log('An error occured creating the festival:', err))     
+=======
+    .then((createdFestival)=>{  
+        res.redirect(`/festivals/${createdFestival._id}`)
+    })
+    .catch(err=> console.log('An error occured creating the festival:', err)) 
+>>>>>>> f60a2168a0657e33c4cb54375d21e6f9da8926a0
 
     }
 })
@@ -64,6 +71,7 @@ router.get('/festivals/list',(req,res)=>{
 
   router.get('/festivals/:festivalId', (req,res)=>{
     console.log('Req.params is:', req.params)
+<<<<<<< HEAD
     console.log("ID 1", req.params.festivalId)
     console.log("ID 2", req.session)
     // console.log("ID 3", req.session.currentUser._id)
@@ -71,6 +79,12 @@ router.get('/festivals/list',(req,res)=>{
     let isIncludingFav;
 
     User.findById(req.session.currentUser._id)
+=======
+    let isIncludingFav;
+    
+    if (req.session.currentUser) {
+        User.findById(req.session.currentUser._id)
+>>>>>>> f60a2168a0657e33c4cb54375d21e6f9da8926a0
     .then((userFromDB)=>{
         console.log('User from DB Festivals is', userFromDB.festivals)
         for (let i=0; i< userFromDB.festivals.length; i++) {
@@ -87,13 +101,30 @@ router.get('/festivals/list',(req,res)=>{
     })
     .then(()=>{
         Festival.findOne({_id: req.params.festivalId})
+<<<<<<< HEAD
         .then((festivalDetails)=>{  
             console.log(festivalDetails)
             res.render('festivals/festival-details', {festivalDetails, isIncludingFav})
         })
+=======
+        .then((festivalDetails)=>{
+            console.log(festivalDetails)
+            res.render('festivals/festival-details', {festivalDetails, isIncludingFav})
+    })
+>>>>>>> f60a2168a0657e33c4cb54375d21e6f9da8926a0
 
     })
     .catch(err=>console.log('Error getting the festival detail is:', err))
+
+      }  
+      else {
+        Festival.findOne({_id: req.params.festivalId})
+        .then((festivalDetails)=>{
+            console.log(festivalDetails)
+            res.render('festivals/festival-details', {festivalDetails})
+        })
+      }
+    
   })
 
 

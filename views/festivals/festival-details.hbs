@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {{#if festivalDetails.imageURL}}
   <div style="background-image: url({{festivalDetails.imageURL}}); background-repeat: no-repeat"; class="picture-box">
 {{else}}
@@ -57,3 +58,30 @@
 {{/if}}
 
 </div>
+=======
+{{festivalDetails.name}}
+<div><img src="{{festivalDetails.imageURL}}" alt="{{festivalDetails.name}}" /></div>
+<div>Artists: {{festivalDetails.artists}}</div>
+<div>Dates: {{festivalDetails.startDate}} - {{festivalDetails.endDate}}</div>
+
+<div>Ticket Prices: {{festivalDetails.currency}} {{festivalDetails.minPrice}}-{{festivalDetails.maxPrice}}</div>
+<div>Tips: {{festivalDetails.mustKnow}}</div>
+<div>Genre: {{festivalDetails.genre}}</div>
+{{#if userInfo}}
+<div class="btn-group">
+    {{#if isIncludingFav}}
+    <a href="/festivals/{{festivalDetails._id}}/unfav/">Remove Festival from Favorites</a>
+    {{else}}
+    <a href="/festivals/{{festivalDetails._id}}/fav/">Add Festival to Favorites</a>
+    {{/if}}
+  </div>
+{{/if}}
+
+{{#if userInfo.isAdmin}}
+  <div class="btn-group">
+    <a href="/festivals/{{festivalDetails._id}}/edit/">Edit Festival</a>
+    <a href="/delete-festival/{{festivalDetails._id}}">Delete Festival</a>
+  </div>
+{{/if}}
+
+>>>>>>> f60a2168a0657e33c4cb54375d21e6f9da8926a0
