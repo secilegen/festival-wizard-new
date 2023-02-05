@@ -4,7 +4,7 @@
         <div class="row justify-content-center">
             <div class="col-md-6">
 
-                <h1>Edit {{festivalToEdit.name}}</h1>
+                <h1 style="color: #7843E6">Edit {{festivalToEdit.name}}</h1>
 
                 <hr>
                 <form action="/festivals/{{festivalToEdit._id}}/edit/" method="POST">
@@ -111,7 +111,7 @@
                         {{!-- <b>Genre:</b> <input type="text" name="genre" value="{{oldData.genre}}"> --}}
                     </label><br><br>
 
-                    <button type="submit"  class="btn-dark btn"> Edit Festival </button>
+                    <button type="submit"  class="purple-button"> Edit Festival </button>
                     {{!-- <input type="submit" value="FestivalEdit" class="btn-dark btn"> --}}
 
                     {{#if errorMessage}}

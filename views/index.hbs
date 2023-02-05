@@ -1,5 +1,9 @@
-<h1>{{appTitle}} 🚀</h1>
-<p>Welcome Ironhacker!</p>
+<h1 style="color: #7843E6"><b>{{appTitle}} 🚀</b></h1>
+<h4>Welcome!</h4>
 
-<div><a href="/festivals/create">Create a Festival</a></div>
-<div><a href="/festivals/list">Browse all Festivals</a></div>
+<ul>
+    {{#if userInfo.isAdmin}}
+        <li><h3><a href="/festivals/create" style="color: #5183EF"><b>Create a Festival</b></a></div></h3>
+    {{/if}}
+    <li><h3><a href="/festivals/list" style="color: #5183EF"><b>Browse all Festivals</b></a></div></h3>
+</ul>

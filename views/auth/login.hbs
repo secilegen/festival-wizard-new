@@ -1,5 +1,6 @@
-<div id="form">
-    <h2>Login</h2>
+<div id="form" style="background-image: url('https://res.cloudinary.com/dl4tnpmqr/image/upload/v1675525382/festival-wizard/cdqqeprozbnvusmra06v.jpg'); background-repeat: no-repeat"; class="picture-box">
+   
+    <h2 style="color: #7843E6"><b>Login</b></h2>
     <form action="/login" method="POST">
     <label for="">
         Email
@@ -9,7 +10,7 @@
         Password
         <input type="password" name="password" placeholder="**********">
     </label>
-    <button type="submit">Log In</button>
+    <button type="submit" class="purple-button">Log In</button>
     {{!-- Error message --}}
     {{#if errorMessage}} 
     <p class="error">{{errorMessage}}</p>

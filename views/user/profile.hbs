@@ -1,21 +1,24 @@
 {{#if userInfo}}
 
-<h1>Welcome {{userInfo.email}}</h1>
+<h1 style="color: #7843E6;">Welcome {{userInfo.email}}</h1>
 <p>This is your profile page</p>
 
-  {{#if userInfo.isAdmin}}
-    <p><b>You are an admin</b></p>
-  {{/if}}
+{{#if userInfo.isAdmin}}
+  <p><b>You are an admin</b></p>
+{{/if}}
+<br><br>
 
-<h2>My Favorites</h2>
+<h2 style="color: #5183EF"><b>My Favorites</b></h2>
 
   {{#if festivals}}
+    <ul>
       {{#each festivals}}
-        <h4>{{name}}</h4>
+        <li><h4><a href="/festivals/{{_id}}" style="color: #FC02FE">{{name}}</a></h4></li>
       {{/each}}
+    </ul></uk>
   {{else}}
-        <h4>You haven't added any festivals on your favorites list. See all festivals to start!</h4>
-        <a href="/festivals/list">See Festivals</a> <span> 
+        <h4>You haven't added any festivals on your favorites list. Go to the
+        <a href="/festivals/list">All Festivals</a> page to start<span> </h4>
   {{/if}}
 {{else}}
 <p>You are not logged in</p>
