@@ -2,11 +2,11 @@
 
 
 <div class="search">
-  <button onclick="window.location.href=`/festivals/search`;" class="wide-purple-button">Search</button>
-</div><br>
+  <button onclick="window.location.href=`/festivals/search`;" class="wide-purple-button"><h2>Search by Name, Country or Genre</h2></button>
+</div><br><br>
 
   {{#if userInfo.isAdmin}}
-    <br><br><h3><a href="/festivals/create" class="purple-button"><b>Create a New Festival</b></a></div></h3>
+    <button onclick="window.location.href=`/festivals/create`;" class="blue-button"><h4>Create a New Festival</h4></button>
   {{/if}}
 
 <div id="container" class="festival-list"> 

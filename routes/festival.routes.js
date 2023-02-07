@@ -8,7 +8,6 @@ var message;
 
 router.get("/festivals/create", (req, res) => {
   res.render("festivals/new-festival-form", { countries });
-  // console.log("REQ.PARAMS", req.params)
 });
 
 router.post(

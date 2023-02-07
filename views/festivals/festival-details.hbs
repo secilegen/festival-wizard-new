@@ -40,9 +40,9 @@
   {{#if userInfo}}
     <div class="btn-group">
       {{#if isIncludingFav}}
-        <button onclick="window.location.href=`/festivals/{{festivalDetails._id}}/unfav/`;" class="purple-button">Remove Festival from Favourites</button>
+        <button onclick="window.location.href=`/festivals/{{festivalDetails._id}}/unfav/`;" class="purple-button">Remove Festival from Favorites</button>
       {{else}}
-        <button onclick="window.location.href=`/festivals/{{festivalDetails._id}}/fav/`;" class="purple-button">Add Festival to Favourites</button>
+        <button onclick="window.location.href=`/festivals/{{festivalDetails._id}}/fav/`;" class="purple-button">Add Festival to Favorites</button>
       {{/if}}
 
       {{#if userInfo.isAdmin}}
