@@ -5,6 +5,10 @@
   <button onclick="window.location.href=`/festivals/search`;" class="wide-purple-button">Search</button>
 </div><br>
 
+  {{#if userInfo.isAdmin}}
+    <br><br><h3><a href="/festivals/create" class="purple-button"><b>Create a New Festival</b></a></div></h3>
+  {{/if}}
+
 <div id="container" class="festival-list"> 
 
   {{#if allFestivals}}
@@ -47,11 +51,11 @@
     {{/each}}
 
   {{else}}
-    <p>  No festivals in the Database </p>
+    <p><b>No festivals in the Database</b></p>
   {{/if}}
 
-  {{#if userInfo.isAdmin}}
-    <li><h3><a href="/festivals/create" style="color: #5183EF"><b>Create a Festival</b></a></div></h3>
-  {{/if}}
+  </div>
 
-</div>
+<div>
+
+
