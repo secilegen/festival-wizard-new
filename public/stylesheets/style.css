@@ -31,21 +31,23 @@ h1 {
 }
     
 .error {
-    background: #f02b63;
+    background: #FC02FE;
     box-sizing: border-box;
     color: #fff;
     margin: 20px auto;
     padding: 20px;
     width: 100%;
+    font-weight: bold;
 }
     
 .warning {
-    background: #00FFF;
+    background: #5183EF;
     box-sizing: border-box;
     color: #fff;
     margin: 20px auto;
     padding: 20px;
     width: 100%;
+    font-weight: bold;
 }
     
 .festival-header{

@@ -8,7 +8,7 @@ var message;
 
 router.get("/festivals/create", (req, res) => {
   res.render("festivals/new-festival-form", { countries });
-  console.log("REQ.PARAMS", req.params)
+  // console.log("REQ.PARAMS", req.params)
 });
 
 router.post(
@@ -75,22 +75,22 @@ router.get('/festivals/search',(req,res)=>{
 })
 
 router.get("/search",(req,res)=> {
-  console.log("REQ-QUERY", req.query)
-  console.log("REQ.PARAMS", req.params)
+  // console.log("REQ-QUERY", req.query)
+  // console.log("REQ.PARAMS", req.params)
   if (req.query.name){
     Festival.find( {"$or": [{name:{$regex:req.query.name}}]} )
     .then((someFestivals) => {
-      console.log("Filtered Festivals ", someFestivals)
+      // console.log("Filtered Festivals ", someFestivals)
       res.render('festivals/some-festivals', { countries, someFestivals , filter:"Name: "+req.query.name})
     })
     .catch((err) =>
     console.log("Error occured searching by name:", err)
   )}
   else if (req.query.country){
-    console.log("req.query.country", req.query.country)
-    Festival.find( {"$or": [{country:{$regex:req.query.country}}]} )
+    // console.log("req.query.country", req.query.country)
+    Festival.find( {location:{country:req.query.country}} )
     .then((someFestivals) => {
-      console.log("Filtered country ", someFestivals)
+      // console.log("Filtered country ", someFestivals)
       res.render('festivals/some-festivals', { countries, someFestivals, filter:"Country: "+req.query.country})
     })
     .catch((err) =>
@@ -99,7 +99,7 @@ router.get("/search",(req,res)=> {
   else if (req.query.genre){
     Festival.find( {"$or": [{genre:{$regex:req.query.genre}}]} )
     .then((someFestivals) => {
-      console.log("Filtered Festivals ", someFestivals)
+      // console.log("Filtered Festivals ", someFestivals)
       res.render('festivals/some-festivals', { countries, someFestivals, filter:"Genre: "+req.query.genre })
     })
     .catch((err) =>
@@ -109,13 +109,13 @@ router.get("/search",(req,res)=> {
 
 
 router.get("/festivals/:festivalId", (req, res) => {
-  console.log("Req.params is:", req.params);
+  // console.log("Req.params is:", req.params);
   let isIncludingFav;
 
   if (req.session.currentUser) {
     User.findById(req.session.currentUser._id)
     .then((userFromDB) => {
-      console.log("User from DB Festivals is", userFromDB);
+      // console.log("User from DB Festivals is", userFromDB);
       for (let i = 0; i < userFromDB.festivals.length; i++) {
         if (userFromDB.festivals.length == 0) {
           isIncludingFav = false;
@@ -128,10 +128,10 @@ router.get("/festivals/:festivalId", (req, res) => {
       console.log("Does it include Fav?:", isIncludingFav);
     })
     .then(() => {
-      console.log("Festival ID", req.params.festivalId)
+      // console.log("Festival ID", req.params.festivalId)
       Festival.findOne({ _id: req.params.festivalId }).then(
         (festivalDetails) => {
-          console.log(festivalDetails);
+          // console.log(festivalDetails);
           res.render("festivals/festival-details", {
                festivalDetails,
                isIncludingFav,
@@ -144,7 +144,7 @@ router.get("/festivals/:festivalId", (req, res) => {
     );
   } else {
     Festival.findOne({ _id: req.params.festivalId }).then((festivalDetails) => {
-      console.log(festivalDetails);
+      // console.log(festivalDetails);
       res.render("festivals/festival-details", { festivalDetails });
     });
   }
