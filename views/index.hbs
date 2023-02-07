@@ -1,9 +1,6 @@
 <h1 style="color: #7843E6"><b>{{appTitle}} 🚀</b></h1>
-<h4>Welcome!</h4>
+<h4>Welcome!</h4><br><br>
 
 <ul>
-    {{#if userInfo.isAdmin}}
-        <li><h3><a href="/festivals/create" style="color: #5183EF"><b>Create a Festival</b></a></div></h3>
-    {{/if}}
-    <li><h3><a href="/festivals/list" style="color: #5183EF"><b>Browse all Festivals</b></a></div></h3>
+    <button onclick="window.location.href=`/festivals/list`;" class="purple-button"><b>Browse all Festivals</b></button>
 </ul>

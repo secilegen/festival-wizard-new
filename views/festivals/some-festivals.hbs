@@ -1,15 +1,15 @@
-<h1><b>Here are all the Festivals in our Database</b></h1>
+<h1><b>Here is a list of Festivals in our Database filtered for <span style="color: #5183EF">{{filter}}</span></b></h1>
 
 
 <div class="search">
   <button onclick="window.location.href=`/festivals/search`;" class="wide-purple-button">Search</button>
 </div><br>
 
-<div id="container" class="festival-list"> 
+{{#if someFestivals}}
 
-  {{#if allFestivals}}
+  <div id="container" class="festival-list"> 
 
-    {{#each allFestivals}}
+    {{#each someFestivals}}
 
       <div class="single-festival">
         <div class="festival-text"> 
@@ -45,13 +45,9 @@
         </div><br>
       </div>
     {{/each}}
+  </div>
 
-  {{else}}
-    <p>  No festivals in the Database </p>
-  {{/if}}
+{{else}}
+  <div class="message"><h2><b>No festivals meet the filter criteria</b></h2></div>
+{{/if}}
 
-  {{#if userInfo.isAdmin}}
-    <li><h3><a href="/festivals/create" style="color: #5183EF"><b>Create a Festival</b></a></div></h3>
-  {{/if}}
-
-</div>

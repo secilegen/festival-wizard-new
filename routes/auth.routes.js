@@ -52,7 +52,6 @@ router.post('/login', isLoggedOut, (req,res)=>{
             req.session.currentUser = user.toObject()
             delete req.session.currentUser.passwordHash
             res.redirect('/profile')
-            // console.log("email: ", req.body.email, "password: ", req.body.password)
         }
         else {
             res.render('auth/login', {errorMessage: 'Incorrect password'})

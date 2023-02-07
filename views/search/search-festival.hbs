@@ -1,0 +1,42 @@
+<body>
+    <h1 style="color: #7843E6"><b>Search options</b></h1><br><br>
+    <form action="/search" method="GET">
+
+    <h4><b>Enter a Festival Name</b></h4>
+
+    <form action="/search" method="GET">
+    <label for=""><input type="text" name="name"></label>
+    <button type="submit" class="purple-button">Search by Festival</button>
+    </form><br><br>
+
+    <form action="/search" method="GET">
+
+        <h4><b>Select a Country</b></h4>
+
+        <label>
+            <select id="country" name="country" class="">
+                {{#each countries}}
+                    <option value={{this}}>{{this}}</option>
+                {{/each}}
+            </select>
+        </label>
+        <button type="submit" onclick="window.location.href=`/festivals/search-by-country`;" class="purple-button">Search by Country</button>
+    </form> <br><br>
+
+    <form action="/search" method="GET">
+
+        <h4><b>Select a Genre</b></h4>
+
+        <label>
+            <select name="genre">
+                <option value="Rock">Rock</option>
+                <option value="Pop">Pop</option>
+                <option value="Electronic">Electronic</option>
+                <option value="Folk">Folk</option>
+                <option value="Techno">Techno</option>
+                <option value="Classical">Classical</option>
+            </select>
+        </label>
+        <button type="submit" onclick="window.location.href=`/festivals/search-by-genre`;" class="purple-button">Search by Genre</button>
+    </form>>
+</body>

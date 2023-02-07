@@ -2,7 +2,7 @@
 body {
     padding: 50px;
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-    background:lightgray;
+    background: ivory;
 
 }
 
@@ -83,7 +83,8 @@ h1 {
 }
 
 .festival-list{
-    padding:0 0 10px 10px;
+    padding:0 0 10px 50px;
+    text-align:center;
 }
 
 .single-festival{
@@ -92,6 +93,7 @@ h1 {
 
 .festival-text{
     line-height: 2px;
+    text-align:left;
 }
 
 .purple-button{
@@ -102,7 +104,29 @@ h1 {
     border-radius: 15px 15px 15px;
 }
 
+.wide-purple-button{
+    background-color: #7843E6; 
+    color: white;
+    width: 80%;
+    padding: 5px 10px;
+    border-radius: 15px 15px 15px;
+}
+
 .blue-button{
     background-color: #5183EF; 
     color: white;  
+}
+
+.search{
+    text-align:center;  
+}
+
+.message{
+    text-align:center;  
+    color: #FC02FE ;
+    padding-top: 100px
+}
+
+.mandatory{
+    background-color: lightgray
 }

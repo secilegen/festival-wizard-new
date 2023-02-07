@@ -37,28 +37,18 @@
     <h4><span style="color: #5183EF">Website: </span>{{festivalDetails.website}}</h4>
   {{/if}}
 
-
   {{#if userInfo}}
     <div class="btn-group">
       {{#if isIncludingFav}}
         <button onclick="window.location.href=`/festivals/{{festivalDetails._id}}/unfav/`;" class="purple-button">Remove Festival from Favourites</button>
-    {{!-- <a href="/festivals/{{festivalDetails._id}}/unfav/">Remove Festival from Favorites</a> --}}
       {{else}}
         <button onclick="window.location.href=`/festivals/{{festivalDetails._id}}/fav/`;" class="purple-button">Add Festival to Favourites</button>
-    {{!-- <a href="/festivals/{{festivalDetails._id}}/fav/">Add Festival to Favorites</a> --}}
       {{/if}}
 
       {{#if userInfo.isAdmin}}
         <button onclick="window.location.href=`/festivals/{{festivalDetails._id}}/edit/`;" class="purple-button">Edit Festival</button>
         <button onclick="window.location.href=`/delete-festival/{{festivalDetails._id}}`;" class="purple-button">Delete Festival</button>
       {{/if}}
-
-    {{!-- <a href="/festivals/{{_id}}/edit/">Edit Festival</a>
-    <a href="/delete-festival/{{_id}}">Delete Festival</a> --}}
     </div>
   {{/if}}
-</div>
-
-
-
 </div>
