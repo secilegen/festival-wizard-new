@@ -1,8 +1,36 @@
 <h1 style="color: #7843E6"><b>{{appTitle}} 🚀</b></h1>
-<h4>Welcome!</h4><br><br>
 
+<div><img src="https://res.cloudinary.com/dl4tnpmqr/image/upload/v1675525382/festival-wizard/cdqqeprozbnvusmra06v.jpg" alt="festival-cover-image" >
+</div>
 
-<ul>
+<h3>POPULAR FESTIVALS</h3>
+<div>
+  {{#each mostPopular}}
+    <div style="border: solid blue; padding:10px 10px 10px 10px">
+      <h2>{{this.name}}</h2>
+
+      <p>Date: {{this.startDate}} - {{this.endDate}} </p>
+      <p>Location: {{this.location}}</p>
+      <div><a href="/festivals/{{this._id}}">See Details</a></div>
+
+    </div><br><br>
+  {{/each}}
+</div>
+
+<h3>RECENTLY ADDED</h3>
+<div>
+    {{#each festivalsByDate}}
+    <div style="border: solid blue; padding:10px 10px 10px 10px">
+      <h2>{{this.name}}</h2>
+
+      <p>Date: {{this.startDate}} - {{this.endDate}} </p>
+      <p>Location: {{this.location}}</p>
+      <div><a href="/festivals/{{this._id}}">See Details</a></div>
+
+    </div><br><br>
+  {{/each}}
+</div>
+
+<div>
     <button onclick="window.location.href=`/festivals/list`;" class="purple-button"><b>Browse all Festivals</b></button>
-</ul>
-
+</div>
