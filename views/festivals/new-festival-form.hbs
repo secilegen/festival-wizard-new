@@ -4,13 +4,13 @@
         <div class="row justify-content-center">
             <div class="col-md-6">
 
-                <h1>New Festival</h1>
+                <h1 style="color: #7843E6"><b>New Festival</b></h1>
 
                 <hr>
 
                 <form action="/festivals/create" method="POST" enctype="multipart/form-data">
                     <label>
-                        <b>Name:</b> <input   type="text" name="name" placeholder="Festival name" value="{{oldData.name}}"/>
+                        <b>Name:</b> <input class="mandatory" type="text" name="name" placeholder="Festival name" value="{{oldData.name}}"/>
                     </label><br><br>
 
                     <label>
@@ -19,7 +19,7 @@
                     </label><br><br>
 
                     <label>
-                        <b>Start Date:</b> <input type="date" name="startDate" placeholder="Start Date" value="{{oldData.startDate}}">
+                        <b>Start Date:</b> <input class="mandatory" type="date" name="startDate" placeholder="Start Date" value="{{oldData.startDate}}">
                     </label>
 
                     <label>
@@ -33,7 +33,9 @@
                     <label>
                         <b>Country:</b> 
         
-                        <select id="country" name="country" class="">
+                        <select class="mandatory" id="country" name="country" class="">
+                            <option selected>--</option>
+
                             {{#if OldData.country}}
                               <option value={{oldData.country}} selected>{{oldData.country}}</option>
                             {{/if}}
@@ -46,7 +48,7 @@
                     </label>  <br><br>  
 
                     <label>
-                        <b>City:</b> <input type="text" name="city" placeholder="City" value="{{oldData.city}}">
+                        <b>City:</b> <input class="mandatory" type="text" name="city" placeholder="City" value="{{oldData.city}}">
                     </label><br><br>
 
                     <label>
@@ -72,7 +74,7 @@
                     </label><br><br>
 
                     <label>
-                        <b>Website:</b> <input type="text" name="website" placeholder="Add a link to a URL" value="{{oldData.website}}">
+                        <b>Website:</b> <input type="text" class="mandatory" name="website" placeholder="Add a link to a URL" value="{{oldData.website}}">
                     </label><br><br>
 
                     <label>
@@ -90,11 +92,9 @@
                             <option value="Techno">Techno</option>
                             <option value="Classical">Classical</option>
                             </select>
-                    </label><br><br>
+                    </label><br><br>                                      
 
-                                       
-
-                    <input type="submit" value="Create Festival" class="btn-dark btn"><br><br>
+                    <input type="submit" value="Create Festival" class="purple-button"><br><br>
 
                     {{#if errorMessage}}
                       <p class={{errorType}}>{{errorMessage}}</p>

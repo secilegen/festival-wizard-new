@@ -1,30 +1,143 @@
+
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    padding: 50px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    background: ivory;
+
 }
 
+#container{
+    display: flex;
+    flex-direction: row;
+    /* justify-content: space-evenly; */
+    flex-wrap: wrap;
+    height: 800px;
+    width: 1400px;
+    align-items: center;
+  }
+
+  #container > div {
+    margin: 50px 100px 250px 10px;
+    width: 25%;
+    height: 20%;
+  }
+    
 a {
-  color: #00b7ff;
+    color: #00b7ff;
 }
-
+    
 h1 {
-  color: 15px;
+    color: 15px;
 }
-
+    
 .error {
-  background: #f02b63;
-  box-sizing: border-box;
-  color: #fff;
-  margin: 20px auto;
-  padding: 20px;
-  width: 100%;
+    background: #FC02FE;
+    box-sizing: border-box;
+    color: #fff;
+    margin: 20px auto;
+    padding: 20px;
+    width: 100%;
+    font-weight: bold;
+}
+    
+.warning {
+    background: #5183EF;
+    box-sizing: border-box;
+    color: #fff;
+    margin: 20px auto;
+    padding: 20px;
+    width: 100%;
+    font-weight: bold;
+}
+    
+.festival-header{
+    color: #7843E6 
+}
+    
+#festival-navbar {
+    padding: 1em;
+    float: right;
+}
+    
+.logo{
+    width: 100px
 }
 
-.warning {
-  background: #43a3e6;
-  box-sizing: border-box;
-  color: #fff;
-  margin: 20px auto;
-  padding: 20px;
-  width: 100%;
+.all-festivals{
+    background-image: url("./images/festival-wizard.png");
+}
+
+.festival-box{
+    padding: 50px;
+    margin: 50px 100px;
+    width:800px;
+    background-color: black;
+    color:white
+}
+
+.picture-box{
+    background-size: 1000px 1000px;
+    margin: 100px;
+    padding: 50px;
+    width:1000px;
+    background-repeat: "no-repeat";
+    color: white
+}
+
+.festival-list{
+    padding:0 0 10px 50px;
+    text-align:center;
+}
+
+.single-festival{
+     /* padding: 50px 0 200px 0;  */
+}
+
+.festival-text{
+    line-height: 2px;
+    text-align:left;
+}
+
+.purple-button{
+    background-color: #7843E6; 
+    color: white;
+    padding: 5px 10px;
+    margin-right: 20px;
+    border-radius: 15px 15px 15px;
+}
+
+.wide-purple-button{
+    background-color: #7843E6; 
+    color: white;
+    width: 80%;
+    padding: 5px 5px 0 0;
+    border-radius: 15px 15px 15px;
+}
+
+.blue-button{
+    background-color: #5183EF  ; 
+    color: white;  
+    padding: 10px 10px;
+    border-radius: 15px 15px 15px;
+}
+
+.cyan-button{
+    background-color: #00FFFF ; 
+    color: white;  
+    padding: 5px 10px;
+    border-radius: 15px 15px 15px;
+}
+
+.search{
+    text-align:center;  
+}
+
+.message{
+    text-align:center;  
+    color: #FC02FE ;
+    padding-top: 100px
+}
+
+.mandatory{
+    background-color: lightgray
 }

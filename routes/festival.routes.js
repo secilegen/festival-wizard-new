@@ -21,56 +21,94 @@ router.post(
       res.render("festivals/new-festival-form", inputChecked);
     } else {
       const {
-        name,
-        imageURL,
-        startDate,
-        endDate,
-        country,
-        city,
-        address,
-        currency,
-        minPrice,
-        maxPrice,
-        website,
-        mustKnow,
-        genre,
-      } = req.body;
+         name,
+         imageURL,
+         startDate,
+         endDate,
+         country,
+         city,
+         address,
+         currency,
+         minPrice,
+         maxPrice,
+         website,
+         mustKnow,
+         genre,
+       } = req.body;
 
-      Festival.create({
-        name,
-        imageURL: req.file?.path,
-        startDate,
-        endDate,
-        location: { city, country, address },
-        currency,
-        minPrice,
-        maxPrice,
-        website,
-        mustKnow,
-        genre,
+       Festival.create({
+         name,
+         imageURL: req.file?.path,
+         startDate,
+         endDate,
+         location: { city, country, address },
+         currency,
+         minPrice,
+         maxPrice,
+         website,
+         mustKnow,
+         genre,
+       })
+      .then((createdFestival) => {
+        res.redirect(`/festivals/${createdFestival._id}`);
       })
-        .then((createdFestival) => {
-          res.redirect(`/festivals/${createdFestival._id}`);
-        })
-        .catch((err) =>
-          console.log("An error occured creating the festival:", err)
-        );
+      .catch((err) =>
+        console.log("An error occured creating the festival:", err)
+      );
     }
   }
 );
 
 router.get("/festivals/list", (req, res) => {
   Festival.find()
-    .then((allFestivals) => {
-      res.render("festivals/all-festivals", { allFestivals });
-    })
-    .catch((err) =>
-      console.log("Error occured retrieving all festivals:", err)
-    );
+  .then((allFestivals) => {
+    res.render("festivals/all-festivals", { allFestivals });
+  })
+  .catch((err) =>
+    console.log("Error occured retrieving all festivals:", err)
+  );
 });
 
+router.get('/festivals/search',(req,res)=>{
+  res.render("search/search-festival", { countries });
+})
+
+router.get("/search",(req,res)=> {
+  // console.log("REQ-QUERY", req.query)
+  // console.log("REQ.PARAMS", req.params)
+  if (req.query.name){
+    Festival.find( {"$or": [{name:{$regex:req.query.name}}]} )
+    .then((someFestivals) => {
+      // console.log("Filtered Festivals ", someFestivals)
+      res.render('festivals/some-festivals', { countries, someFestivals , filter:"Name: "+req.query.name})
+    })
+    .catch((err) =>
+    console.log("Error occured searching by name:", err)
+  )}
+  else if (req.query.country){
+    // console.log("req.query.country", req.query.country)
+    Festival.find( {location:{country:req.query.country}} )
+    .then((someFestivals) => {
+      // console.log("Filtered country ", someFestivals)
+      res.render('festivals/some-festivals', { countries, someFestivals, filter:"Country: "+req.query.country})
+    })
+    .catch((err) =>
+    console.log("Error occured searching by country:", err)
+  )}
+  else if (req.query.genre){
+    Festival.find( {"$or": [{genre:{$regex:req.query.genre}}]} )
+    .then((someFestivals) => {
+      // console.log("Filtered Festivals ", someFestivals)
+      res.render('festivals/some-festivals', { countries, someFestivals, filter:"Genre: "+req.query.genre })
+    })
+    .catch((err) =>
+    console.log("Error occured searching by genre:", err)
+  )}
+})
+
+
 router.get("/festivals/:festivalId", (req, res) => {
-  console.log("Req.params is:", req.params);
+  // console.log("Req.params is:", req.params);
   let isIncludingFav;
 
   if (req.session.currentUser) {
@@ -210,6 +248,7 @@ router.post(
         genre,
       } = req.body;
       let imageURL;
+
       if (req.file) {
         imageURL = req.file.path;
       } else {
