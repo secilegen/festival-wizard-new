@@ -113,37 +113,36 @@ router.get("/festivals/:festivalId", (req, res) => {
 
   if (req.session.currentUser) {
     User.findById(req.session.currentUser._id)
-    .then((userFromDB) => {
-      // console.log("User from DB Festivals is", userFromDB);
-      for (let i = 0; i < userFromDB.festivals.length; i++) {
-        if (userFromDB.festivals.length == 0) {
-          isIncludingFav = false;
-          return;
-        } else if (userFromDB.festivals[i] == req.params.festivalId) {
-          isIncludingFav = true;
-          return;
+      .then((userFromDB) => {
+        console.log("User from DB Festivals is", userFromDB);
+        for (let i = 0; i < userFromDB.festivals.length; i++) {
+          if (userFromDB.festivals.length == 0) {
+            isIncludingFav = false;
+            return;
+          } else if (userFromDB.festivals[i] == req.params.festivalId) {
+            isIncludingFav = true;
+            return;
+          }
         }
-      }
-      console.log("Does it include Fav?:", isIncludingFav);
-    })
-    .then(() => {
-      // console.log("Festival ID", req.params.festivalId)
-      Festival.findOne({ _id: req.params.festivalId }).then(
-        (festivalDetails) => {
-          // console.log(festivalDetails);
-          res.render("festivals/festival-details", {
-               festivalDetails,
-               isIncludingFav,
-          });
-        }
+        console.log("Does it include Fav?:", isIncludingFav);
+      })
+      .then(() => {
+        Festival.findOne({ _id: req.params.festivalId }).then(
+          (festivalDetails) => {
+            console.log(festivalDetails);
+            res.render("festivals/festival-details", {
+              festivalDetails,
+              isIncludingFav,
+            });
+          }
+        );
+      })
+      .catch((err) =>
+        console.log("Error getting the festival detail is:", err)
       );
-    })
-    .catch((err) =>
-      console.log("Error getting the festival detail is:", err)
-    );
   } else {
     Festival.findOne({ _id: req.params.festivalId }).then((festivalDetails) => {
-      // console.log(festivalDetails);
+      console.log(festivalDetails);
       res.render("festivals/festival-details", { festivalDetails });
     });
   }
@@ -153,48 +152,49 @@ router.get("/delete-festival/:id", (req, res) => {
   const festivalId = req.params.id;
 
   Festival.findByIdAndDelete(festivalId)
-  .then((festivalToDelete) => {
-    res.redirect("/festivals/list");
-  })
-  .catch((err) => console.log("Delete error is", err));
+    .then((festivalToDelete) => {
+      res.redirect("/festivals/list");
+    })
+    .catch((err) => console.log("Delete error is", err));
 });
 
 router.get("/festivals/:id/edit/", (req, res, next) => {
   Festival.findById(req.params.id)
-  .then((festivalToEdit) => {
-    res.render("festivals/edit-festival", { countries, festivalToEdit });
-  })
-  .catch((err) =>
-    console.log("Error occured retrieving the data to edit festival:", err)
-  );
+    .then((festivalToEdit) => {
+      res.render("festivals/edit-festival", { countries, festivalToEdit });
+    })
+    .catch((err) =>
+      console.log("Error occured retrieving the data to edit festival:", err)
+    );
 });
 
 router.get("/festivals/:id/fav/", (req, res) => {
   Festival.findByIdAndUpdate(req.params.id, { $inc: { favorited: 1 } })
   .then(() => {
-    return User.findByIdAndUpdate(req.session.currentUser._id, {
-      $push: { festivals: req.params.id },
-    })
-    .then(() => {
-      res.redirect(`/festivals/${req.params.id}`);
-    })
-    .catch((err) =>
-      console.log("An error occured while adding to fav:", err)
-    );
-  });
+      return User.findByIdAndUpdate(req.session.currentUser._id, {
+        $push: { festivals: req.params.id },
+      })
+        .then(() => {
+          res.redirect(`/festivals/${req.params.id}`);
+        })
+        .catch((err) =>
+          console.log("An error occured while adding to fav:", err)
+        );
+    }
+  );
 });
 
 router.get("/festivals/:id/unfav/", (req, res) => {
   Festival.findByIdAndUpdate(req.params.id, { $inc: { favorited: -1 } })
-  .then(() => {
-    return User.findByIdAndUpdate(req.session.currentUser._id, { $pull: {festivals: req.params.id}})
     .then(() => {
-      res.redirect(`/festivals/${req.params.id}`);
-    })
-    .catch((err) =>
-      console.log("An error occured while removing from fav:", err)
-    );
-  });
+      return User.findByIdAndUpdate(req.session.currentUser._id, { $pull: {festivals: req.params.id}})
+        .then(() => {
+          res.redirect(`/festivals/${req.params.id}`);
+        })
+        .catch((err) =>
+          console.log("An error occured while removing from fav:", err)
+        );
+    });
 });
 
 router.post(
@@ -205,7 +205,7 @@ router.post(
 
     if (inputChecked.errorMessage) {
       let festivalToEdit = {
-       name: req.body.name,
+        name: req.body.name,
         startDate: req.body.startDate,
         endDate: req.body.endDate,
         currency: req.body.currency,
@@ -268,10 +268,10 @@ router.post(
         mustKnow,
         genre,
       })
-      .then((festivalToUpdate) => {
-        res.redirect(`/festivals/${festivalToUpdate._id}`);
-      })
-      .catch((err) => console.log("Editing error is:", err));
+        .then((festivalToUpdate) => {
+          res.redirect(`/festivals/${festivalToUpdate._id}`);
+        })
+        .catch((err) => console.log("Editing error is:", err));
     }
   }
 );
@@ -281,6 +281,7 @@ function checkInput(req) {
     message = "You must enter a name for your Festival";
     errorType = "error";
   } else if (!req.body.startDate && !req.body.endDate) {
+    // if there is an end date but no start date, code below sets start date to end date
     message = "You must enter a Start Date";
     errorType = "error";
   } else if (!req.body.country) {
@@ -317,7 +318,7 @@ function checkInput(req) {
   } else if (req.body.startDate > req.body.endDate) {
     message =
       "End Date cannot be before the Start Date. End Date has been set to " +
-    req.body.startDate;
+      req.body.startDate;
     errorType = "warning";
     req.body.endDate = req.body.startDate;
   } else {
@@ -327,6 +328,5 @@ function checkInput(req) {
 
   return { countries, errorMessage: message, errorType, oldData: req.body };
 }
-
 
 module.exports = router;
