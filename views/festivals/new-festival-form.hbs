@@ -34,10 +34,11 @@
                         <b>Country:</b> 
         
                         <select class="mandatory" id="country" name="country" class="">
-                            <option selected>--</option>
 
-                            {{#if OldData.country}}
-                              <option value={{oldData.country}} selected>{{oldData.country}}</option>
+                            {{#if oldData.country}}
+                                <option value={{oldData.country}} selected>{{oldData.country}}</option>
+                            {{else}}
+                                <option selected>--</option>
                             {{/if}}
 
                             {{#each countries}}
@@ -58,10 +59,14 @@
                     <label>
                         <b>Currency:</b> 
                             <select name="currency">
-                                <option value={{oldData.currency}} selected>{{oldData.currency}}</option>
-                                <option value="EUR" selected>EUR</option>
-                                <option value="USD">USD</option>
-                                <option value="GBP">GBP</option>
+                                {{#if oldData.currency}}
+                                    <option value={{oldData.currency}} selected>{{oldData.currency}}</option>
+                                {{else}}
+                                    <option selected>--</option>
+                                {{/if}}
+                                <option value="€">EUR</option>
+                                <option value="$">USD</option>
+                                <option value="£">GBP</option>
                             </select>
                     </label><br><br>
 

@@ -6,21 +6,41 @@ body {
 
 }
 
+.search-container{
+    margin: 50px 100px 50px 10px;
+    text-align:center;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
 #container{
     display: flex;
     flex-direction: row;
-    /* justify-content: space-evenly; */
+    justify-content: flex-start;
     flex-wrap: wrap;
-    height: 800px;
-    width: 1400px;
+    /* height: 800px; */
+    width: 100%
     align-items: center;
   }
 
   #container > div {
-    margin: 50px 100px 250px 10px;
+    margin: 100px 100px 50px 10px;
     width: 25%;
     height: 20%;
   }
+
+  #single-container{
+    width: 100%;
+    margin: 0 0 0 200px;
+    padding: 5px 5px 0 0;
+    align-items: center;
+  }
+
+  #festival-info{
+    margin: 0 0 0 100px;
+    text-align:left;
+}
     
 a {
     color: #00b7ff;
@@ -63,10 +83,6 @@ h1 {
     width: 100px
 }
 
-.all-festivals{
-    background-image: url("./images/festival-wizard.png");
-}
-
 .festival-box{
     padding: 50px;
     margin: 50px 100px;
@@ -81,12 +97,12 @@ h1 {
     padding: 50px;
     width:1000px;
     background-repeat: "no-repeat";
-    color: white
+    color: white;
 }
 
 .festival-list{
     padding:0 0 10px 50px;
-    text-align:center;
+    /* text-align:center; */
 }
 
 .single-festival{
@@ -128,9 +144,17 @@ h1 {
     border-radius: 15px 15px 15px;
 }
 
-.search{
-    text-align:center;  
-}
+/* .search{
+    padding:0 0 10px 50px;
+    text-align:center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    height: 800px;
+    width: 1400px;
+    align-items: center;
+} */
 
 .message{
     text-align:center;  
@@ -140,4 +164,13 @@ h1 {
 
 .mandatory{
     background-color: lightgray
+}
+
+.login-signup{
+    background-size: 1000px 1000px;
+    padding: 50px;
+    background-repeat: "no-repeat";
+    color: white;
+    margin: auto;
+    width: 50%;
 }

@@ -17,7 +17,9 @@ router.post(
     const inputChecked = checkInput(req);
 
     if (inputChecked.errorMessage) {
+      console.log("REQ:body ", req.body)
       inputChecked.oldData = req.body;
+      console.log("INPUTCHECKED ", inputChecked.oldData)
       res.render("festivals/new-festival-form", inputChecked);
     } else {
       const {
@@ -62,53 +64,114 @@ router.post(
 router.get("/festivals/list", (req, res) => {
   Festival.find()
   .then((allFestivals) => {
-    res.render("festivals/all-festivals", { allFestivals });
+    res.render("festivals/all-festivals", { allFestivals, countries });
   })
   .catch((err) =>
     console.log("Error occured retrieving all festivals:", err)
   );
 });
 
-router.get('/festivals/search',(req,res)=>{
-  res.render("search/search-festival", { countries });
-})
 
 router.get("/search",(req,res)=> {
-  // console.log("REQ-QUERY", req.query)
-  // console.log("REQ.PARAMS", req.params)
-  if (req.query.name){
-    Festival.find( {"$or": [{name:{$regex:req.query.name}}]} )
-    .then((someFestivals) => {
-      // console.log("Filtered Festivals ", someFestivals)
-      res.render('festivals/some-festivals', { countries, someFestivals , filter:"Name: "+req.query.name})
-    })
-    .catch((err) =>
-    console.log("Error occured searching by name:", err)
-  )}
-  else if (req.query.country){
-    // console.log("req.query.country", req.query.country)
-    Festival.find( {location:{country:req.query.country}} )
-    .then((someFestivals) => {
-      // console.log("Filtered country ", someFestivals)
-      res.render('festivals/some-festivals', { countries, someFestivals, filter:"Country: "+req.query.country})
-    })
-    .catch((err) =>
-    console.log("Error occured searching by country:", err)
-  )}
-  else if (req.query.genre){
-    Festival.find( {"$or": [{genre:{$regex:req.query.genre}}]} )
-    .then((someFestivals) => {
-      // console.log("Filtered Festivals ", someFestivals)
-      res.render('festivals/some-festivals', { countries, someFestivals, filter:"Genre: "+req.query.genre })
-    })
-    .catch((err) =>
-    console.log("Error occured searching by genre:", err)
-  )}
+
+  var hasName, hasCountry, hasGenre
+
+  if (req.query.name) {
+    hasName = true
+  }
+  else{
+    hasName = false
+  }
+  hasCountry = !(req.query.country = "--")
+  hasGenre = !(req.query.genre === "--")
+
+  console.log("REQ.QUERY", req.query)
+
+  if (hasName || hasCountry || hasGenre){
+
+    filter1 = "Name: "+ req.query.name
+    filter2 = "Country: "+ req.query.country
+    filter3 = "Genre: "+ req.query.genre
+
+    console.log("hasName ", hasName, "hasCountry ", hasCountry, "hasGenre ", hasGenre)
+
+    if (hasName && hasCountry && hasGenre){
+      Festival.find( {"$or": [{name:{$regex:req.query.name}, location:{country:{$regex:req.query.country}}, genre:{$regex:req.query.genre}}]} )
+      .then((someFestivals) => {
+        res.render('festivals/some-festivals', { countries, someFestivals , filter: filter1+", "+filter2+", "+filter3})
+      })
+      .catch((err) =>
+      console.log("Error occured searching by name, country and genre:", err)
+    )}
+
+    else if (hasName && hasCountry){
+      Festival.find( {"$or": [{name:{$regex:req.query.name}, location:{country:{$regex:req.query.country}},}]} )
+      .then((someFestivals) => {
+        res.render('festivals/some-festivals', { countries, someFestivals , filter: filter1+", "+filter2})
+      })
+      .catch((err) =>
+      console.log("Error occured searching by name and country:", err)
+    )}
+
+    else if (hasName && hasGenre){
+      Festival.find( {"$or": [{name:{$regex:req.query.name},  genre:{$regex:req.query.genre}}]} )
+      .then((someFestivals) => {
+        res.render('festivals/some-festivals', { countries, someFestivals , filter: filter1+", "+filter3})
+      })
+      .catch((err) =>
+      console.log("Error occured searching by name and genre:", err)
+    )}
+
+    else if (hasCountry && hasGenre){
+      Festival.find( {"$or": [{location:{country:{$regex:req.query.country}}, genre:{$regex:req.query.genre}}]} )
+      .then((someFestivals) => {
+        res.render('festivals/some-festivals', { countries, someFestivals , filter: filter2+", "+filter3})
+      })
+      .catch((err) =>
+      console.log("Error occured searching by country and genre:", err)
+    )}
+
+    else if (hasName) {
+      Festival.find( {"$or": [{name:{$regex:req.query.name}}]} )
+      .then((someFestivals) => {
+        res.render('festivals/some-festivals', { countries, someFestivals , filter: filter1})
+      })
+      .catch((err) =>
+      console.log("Error occured searching by name:", err)
+    )}
+    else if (hasCountry) {
+      Festival.find( {"$or": [{location:{country:{$regex:req.query.country}}}]} )
+      .then((someFestivals) => {
+        res.render('festivals/some-festivals', { countries, someFestivals , filter: filter2})
+      })
+      .catch((err) =>
+      console.log("Error occured searching by country:", err)
+    )
+    }
+    else if (hasGenre){
+      Festival.find( {"$or": [{genre:{$regex:req.query.genre}}]} )
+      .then((someFestivals) => {
+        res.render('festivals/some-festivals', { countries, someFestivals , filter: filter3})
+      })
+      .catch((err) =>
+      console.log("Error occured searching by genre:", err)
+    )   
+    }
+    else{
+      console.log("This should be impossible. Check your code")
+    }
+  }
+else {
+  // Festival.find()
+  // .then((allFestivals) => {
+  //   res.render("festivals/all-festivals", { allFestivals, countries });
+  // })  
+}
 })
+
 
 
 router.get("/festivals/:festivalId", (req, res) => {
-  // console.log("Req.params is:", req.params);
   let isIncludingFav;
 
   if (req.session.currentUser) {
