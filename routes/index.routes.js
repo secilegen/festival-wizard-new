@@ -6,12 +6,12 @@ const router = express.Router();
 router.get("/", (req, res, next) => {
   let mostPopular
   let festivalsByDate
-  Festival.find().sort({favorited: -1})
+  Festival.find().limit(6).sort({favorited: -1})
   .then(result=>{
     mostPopular = result
   })
   .then(()=>{
-    Festival.find().sort({createdAt: -1})
+    Festival.find().limit(6).sort({createdAt: -1})
     .then(result=>{
       festivalsByDate = result
     })
