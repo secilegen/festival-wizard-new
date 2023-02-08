@@ -264,3 +264,9 @@ h1 {
     width: 40%;
     text-align: center;
 }
+
+.profile-title{
+    font-family: "Gravitas One";
+    color: #00b7ff;
+    text-align: right;
+}

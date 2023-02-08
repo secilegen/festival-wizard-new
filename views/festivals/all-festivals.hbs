@@ -5,10 +5,6 @@
   <button onclick="window.location.href=`/festivals/search`;" class="wide-purple-button"><h2>Search by Name, Country or Genre</h2></button>
 </div><br><br>
 
-  {{#if userInfo.isAdmin}}
-    <button onclick="window.location.href=`/festivals/create`;" class="blue-button"><h4>Create a New Festival</h4></button>
-  {{/if}}
-
 <div id="container" class="festival-list"> 
 
   {{#if allFestivals}}
