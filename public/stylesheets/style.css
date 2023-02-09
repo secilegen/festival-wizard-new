@@ -1,6 +1,6 @@
 
 body {
-    padding: 50px;
+    padding: 10px 50px 50px 50px;
     font-size: 14px ;
     font-family: "Roboto Mono", Helvetica, Arial, sans-serif;
     background: ivory;
@@ -8,20 +8,28 @@ body {
 }
 
 .search-container{
-    margin: 50px 100px 50px 10px;
+    margin: 50px 0px 50px 0px;
     text-align:center;
     display: flex;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
+    justify-content: space-around;
+    /* flex-direction: column;     */
+    align-items: center;
 }
-
+.search-button {
+    width: 20%;
+}
+.search-fields{
+    display: flex;
+    justify-content: space-around;
+    width: 75%;
+}
 #container{
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     flex-wrap: wrap;
     /* height: 800px; */
-    width: 100%
+    width: 100%;
     align-items: center;
   }
 
@@ -106,6 +114,7 @@ h1 {
 .logo-navbar{
     display: flex;
     justify-content: space-between;
+    margin-top: 0px;
 }
 .profile-button{
     color: #00b7ff;
@@ -149,9 +158,11 @@ h1 {
 }
 
 .wide-purple-button{
-    background-color: #7843E6; 
+    background-color: lightgray; 
+    border: transparent;
     color: white;
     width: 80%;
+    height: 80%;
     padding: 5px 5px 0 0;
     border-radius: 15px 15px 15px;
 }
@@ -175,7 +186,7 @@ h1 {
 
 .message{
     text-align:center;  
-    color: #FC02FE ;
+    color: black;
     padding-top: 100px
 }
 
@@ -261,6 +272,13 @@ h1 {
 .popular-festivals h3 {
     font-weight: 800;
 }
+.all-festivals{
+    margin: 30px 20px 30px 10px;
+}
+
+.all-festivals h3 {
+    font-weight: 800;
+}
 
 .recently-added{
     margin: 10px 20px 20px 10px;
@@ -324,6 +342,7 @@ h1 {
 
 .cta-button{
     background-color: #7843E6; 
+    border-color: transparent;
     color: white;
     font-weight: 400;
     font-size: 18px;
