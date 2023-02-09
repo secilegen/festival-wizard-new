@@ -1,9 +1,46 @@
 <h1><b>Here are all the Festivals in our Database</b></h1>
 
 
-<div class="search">
-  <button onclick="window.location.href=`/festivals/search`;" class="wide-purple-button"><h2>Search by Name, Country or Genre</h2></button>
-</div><br><br>
+<div class="search-container">
+
+  <div>
+
+    <form action="/search" method="GET">
+
+      <div>
+        <label for=""><input type="text" name="name"></label>
+
+        <label>
+          <select id="country" name="country" class="">
+            <option selected>--</option>
+            {{#each countries}}
+              <option value={{this}}>{{this}}</option>
+            {{/each}}
+          </select>
+        </label>
+
+        <label>
+          <select name="genre">
+              <option selected>--</option>
+              <option value="Rock">Rock</option>
+              <option value="Pop">Pop</option>
+              <option value="Electronic">Electronic</option>
+              <option value="Folk">Folk</option>
+              <option value="Techno">Techno</option>
+              <option value="Classical">Classical</option>
+          </select>
+        </label>
+
+      </div><br><br>
+
+      <button type="submit" class="wide-purple-button"><h4>Search by Name, Country, and Genre</h4></button>
+
+    </form>
+
+    {{#if errorMessage}}
+      <br><br>
+      <p class={{errorType}}>{{errorMessage}}</p>
+    {{/if}}
 
 <div id="container" class="festival-list"> 
 
@@ -15,9 +52,9 @@
         <div class="festival-text"> 
 
           {{#if imageURL}}
-            <img alt="Festival image" width=400px height=250px src="{{imageURL}}">   
+            <img alt="Festival image" src="{{imageURL}}" class="image">
           {{else}}
-            <img alt="Festival image" width=400px height=250px src="https://res.cloudinary.com/dl4tnpmqr/image/upload/v1675525382/festival-wizard/cdqqeprozbnvusmra06v.jpg">  
+            <img alt="Festival image" src="https://res.cloudinary.com/dl4tnpmqr/image/upload/v1675525382/festival-wizard/cdqqeprozbnvusmra06v.jpg" class="image">  
           {{/if}} 
 
           <br><br>

@@ -16,7 +16,7 @@
     <nav>
 
         <ul style="list-style: none">
-            <a href="/profile">
+            <a href="/">
                 <img src="images/festival-wizard.png" alt="" class="logo">   
             </a>
 
@@ -24,9 +24,14 @@
 
             <a href="/festivals/list" class="festival-header"><b>FESTIVALS</b></a> <span> | </span>
 
+            {{#if userInfo.isAdmin}}
+                <a href="/festivals/create" class="festival-header"><b>CREATE FESTIVAL</b></a> <span> | </span>
+            {{/if}} 
+      
+
             {{#if userInfo}}
 
-                <a href="/profile"><b>Profile</b></a> <span> | </span>
+                <a href="/profile"><b>PROFILE</b></a> <span> | </span>
                 <form id="logout-form" action="/logout" method="POST">
                     <br>
                     <button class="blue-button">Logout</button>
