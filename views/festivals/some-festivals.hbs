@@ -1,53 +1,41 @@
-<h1><b>Here is a list of Festivals in our Database filtered for <span style="color: #5183EF">{{filter}}</span></b></h1>
+<div class="all-festivals">
+  <h3>SEARCH RESULTS</h3>
+  <h6><span style="color: #5183EF">{{filter}}</span></h6>
 
-
-<div class="search">
-  <button onclick="window.location.href=`/festivals/search`;" class="wide-purple-button"><h2>Search Again</h2></button>
-</div><br><br>
+<div class="home-container" id="home-list"> 
 
 {{#if someFestivals}}
-
-  <div id="container" class="festival-list"> 
-
     {{#each someFestivals}}
 
-      <div class="single-festival">
-        <div class="festival-text"> 
+      <div class="home-single-festival">
 
-          {{#if imageURL}}
-            <img alt="Festival image" width=400px height=250px src="{{imageURL}}">   
-          {{else}}
-            <img alt="Festival image" width=400px height=250px src="https://res.cloudinary.com/dl4tnpmqr/image/upload/v1675525382/festival-wizard/cdqqeprozbnvusmra06v.jpg">  
-          {{/if}} 
 
-          <br><br>
-          <h3 style="color: #7843E6; margin-bottom: 0"><b>{{name}}</b></h3>
-
-          <h3>{{startDate}} - {{endDate}}</h3>
-          <p><b>Location:</b>
-          {{#if location.venue}} 
-            {{location.venue}}, {{location.country}}, {{location.city}}</p>
-          {{else}}
-            {{location.country}}, {{location.city}}</p>
-          {{/if}}        
-
-          <p><b>Ticket prices: </b>
-          {{#if minPrice}}
-            {{currency}}{{minPrice}}-{{currency}}{{maxPrice}}  
-          {{else}}
-            unavailable
-          {{/if}}
-          </p>
+        <div class="home-festival-image">
+          <img class="festival-image"
+            alt="Festival image"
+            {{!-- width="400px"
+            height="250px" --}}
+            src="{{imageURL}}"
+          />
         </div>
+          <div class="home-festival-text">
+            <h3 style="color: #7843E6">{{name}}</h3>
+          
+          <p>{{startDate}} - {{endDate}}</p>
+          <p>{{location.country}},
+            {{location.city}}</p></div>
+        <div class="detail-button">
+          <button
+            onclick="window.location.href=`/festivals/{{_id}}`;"
+            class="purple-button"
+          >See Details</button>
 
-        <div>
-          <button onclick="window.location.href=`/festivals/{{_id}}`;" class="purple-button">See Details</button>
-        </div><br>
+        </div>
       </div>
-    {{/each}}
-  </div>
+      {{/each}}
 
 {{else}}
-  <div class="message"><h2><b>No festivals meet the filter criteria</b></h2></div>
+  <div class="message"><h2><b>No festivals found with the search criteria</b></h2></div>
 {{/if}}
-
+</div>
+</div>

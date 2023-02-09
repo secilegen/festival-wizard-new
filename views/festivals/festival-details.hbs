@@ -1,10 +1,10 @@
-{{#if festivalDetails.imageURL}}
-  <div style="background-image: url({{festivalDetails.imageURL}}); background-repeat: no-repeat"; class="picture-box">
-{{else}}
-  <div style="background-image: url('https://res.cloudinary.com/dl4tnpmqr/image/upload/v1675525382/festival-wizard/cdqqeprozbnvusmra06v.jpg'); background-repeat: no-repeat"; class="picture-box">
-{{/if}} 
-
-
+<div id="single-container"> 
+  {{#if festivalDetails.imageURL}}
+    <div style="background-image: url({{festivalDetails.imageURL}}); background-repeat: no-repeat"; class="picture-box">
+  {{else}}
+    <div style="background-image: url('https://res.cloudinary.com/dl4tnpmqr/image/upload/v1675525382/festival-wizard/cdqqeprozbnvusmra06v.jpg'); background-repeat: no-repeat"; class="picture-box">
+  {{/if}} 
+  
   <div class="festival-box">
     <h1 style="color: #7843E6">{{festivalDetails.name}}</h1>
     <h2>{{festivalDetails.startDate}} - {{festivalDetails.endDate}}</h2>
@@ -12,32 +12,7 @@
     {{festivalDetails.location.city}}, {{festivalDetails.location.country}}
   </div>
 
-
-  {{#if festivalDetails.artists}}
-    <h4><span style="color: #5183EF ">with </span>{{festivalDetails.artists}}</h4>
-  {{else}}
-    <h4>Line up tbc</h4>
-  {{/if}}
-
-  {{#if festivalDetails.minPrice}}
-    <h4><span style="color: #5183EF">Tickets: </span>{{festivalDetails.currency}}{{festivalDetails.minPrice}} - {{festivalDetails.currency}}{{festivalDetails.maxPrice}}</h4>
-  {{else}}
-    <h4>Ticket price not yet known</h4>
-  {{/if}}
-
-  {{#if festivalDetails.genre}}
-    <h4><span style="color: #5183EF">Genre: </span>{{festivalDetails.genre}}</h4>
-  {{/if}}
-
-  {{#if festivalDetails.description}}
-    <h4><span style="color: #5183EF">Fun fact: </span>{{festivalDetails.description}}</h4>
-  {{/if}}
-
-  {{#if festivalDetails.website}}
-    <h4><span style="color: #5183EF">Website: </span>{{festivalDetails.website}}</h4>
-  {{/if}}
-
-  {{#if userInfo}}
+    {{#if userInfo}}
     <div class="btn-group">
       {{#if isIncludingFav}}
         <button onclick="window.location.href=`/festivals/{{festivalDetails._id}}/unfav/`;" class="purple-button">Remove Festival from Favorites</button>
@@ -51,4 +26,34 @@
       {{/if}}
     </div>
   {{/if}}
+</div>
+
+<div id="festival-info">
+
+  {{#if festivalDetails.artists}}
+    <h4><span style="color: #7843E6"><b>with </span>{{festivalDetails.artists}}</b></h4>
+  {{else}}
+    <h4><b>Line up tbc</b></h4>
+  {{/if}}
+
+  {{#if festivalDetails.minPrice}}
+    <h4><span style="color: #7843E6"><b>Tickets: </span>{{festivalDetails.currency}}{{festivalDetails.minPrice}} - {{festivalDetails.currency}}{{festivalDetails.maxPrice}}</b></h4>
+  {{else}}
+    <h4><b>Ticket price not yet known</b></h4>
+  {{/if}}
+
+  {{#if festivalDetails.genre}}
+    <h4><span style="color: #7843E6"><b>Genre: </span>{{festivalDetails.genre}}</b></h4>
+  {{/if}}
+
+  {{#if festivalDetails.description}}
+    <h4><span style="color: #7843E6"><b>Fun fact: </span>{{festivalDetails.description}}</b></h4>
+
+  {{/if}}
+
+  {{#if festivalDetails.website}}
+    <h4><span style="color: #7843E6"><b>Website: </span>{{festivalDetails.website}}</b></h4>
+  {{/if}}
+
+
 </div>

@@ -1,27 +1,55 @@
 
 body {
-    padding: 50px;
+    padding: 10px 50px 50px 50px;
     font-size: 14px ;
     font-family: "Roboto Mono", Helvetica, Arial, sans-serif;
     background: ivory;
 
 }
 
+.search-container{
+    margin: 50px 0px 50px 0px;
+    text-align:center;
+    display: flex;
+    justify-content: space-around;
+    /* flex-direction: column;     */
+    align-items: center;
+}
+.search-button {
+    width: 20%;
+}
+.search-fields{
+    display: flex;
+    justify-content: space-around;
+    width: 75%;
+}
 #container{
     display: flex;
     flex-direction: row;
-    /* justify-content: space-evenly; */
+    justify-content: flex-start;
     flex-wrap: wrap;
-    height: 800px;
-    width: 1400px;
+    /* height: 800px; */
+    width: 100%;
     align-items: center;
   }
 
   #container > div {
-    margin: 50px 100px 250px 10px;
+    margin: 100px 100px 50px 10px;
     width: 25%;
     height: 20%;
   }
+
+  #single-container{
+    width: 100%;
+    margin: 0 0 0 200px;
+    padding: 5px 5px 0 0;
+    align-items: center;
+  }
+
+  #festival-info{
+    margin: 0 0 0 100px;
+    text-align:left;
+}
     
 a {
     color: #00b7ff;
@@ -50,9 +78,20 @@ h1 {
     width: 100%;
     font-weight: bold;
 }
+
+.selectWarning{
+    background: #5183EF;
+    box-sizing: border-box;
+    color: #fff;
+    margin: 20px auto;
+    padding: 20px;
+    width: 60%;
+    font-weight: bold;  
+}
     
 .festival-header{
-    color: #7843E6 
+    color: #7843E6;
+    margin: 25px
 }
     
 #festival-navbar {
@@ -61,11 +100,24 @@ h1 {
 }
     
 .logo{
-    width: 100px
+    width: 125px;
+    display: flex;
+    justify-content: flex-start;
 }
 
-.all-festivals{
-    background-image: url("./images/festival-wizard.png");
+.navbar{
+    list-style: none;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.logo-navbar{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0px;
+}
+.profile-button{
+    color: #00b7ff;
 }
 
 .festival-box{
@@ -82,16 +134,14 @@ h1 {
     padding: 50px;
     width:1000px;
     background-repeat: "no-repeat";
-    color: white
+    color: white;
 }
 
 .festival-list{
     padding:0 0 10px 50px;
-    text-align:center;
 }
 
 .single-festival{
-     /* padding: 50px 0 200px 0;  */
 }
 
 .festival-text{
@@ -108,18 +158,22 @@ h1 {
 }
 
 .wide-purple-button{
-    background-color: #7843E6; 
+    background-color: lightgray; 
+    border: transparent;
     color: white;
     width: 80%;
+    height: 80%;
     padding: 5px 5px 0 0;
     border-radius: 15px 15px 15px;
 }
 
 .blue-button{
-    background-color: #5183EF  ; 
-    color: white;  
+    background-color: ivory ; 
+    color: #00b7ff;  
     padding: 10px 10px;
-    border-radius: 15px 15px 15px;
+    border: transparent;
+    text-decoration: underline;
+    /* border-radius: 15px 15px 15px; */
 }
 
 .cyan-button{
@@ -129,18 +183,32 @@ h1 {
     border-radius: 15px 15px 15px;
 }
 
-.search{
-    text-align:center;  
-}
 
 .message{
     text-align:center;  
-    color: #FC02FE ;
+    color: black;
     padding-top: 100px
 }
 
 .mandatory{
     background-color: lightgray
+}
+
+
+.login-signup{
+    background-size: 1000px 1000px;
+    padding: 50px;
+    background-repeat: "no-repeat";
+    color: white;
+    margin: auto;
+    width: 50%;
+}
+
+
+.image{
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
 }
 
 .home-container{
@@ -152,6 +220,7 @@ h1 {
     width: 1400px; */
     align-items: center;
     margin-bottom: 50px;
+
   }
 
 /* .home-list{
@@ -203,6 +272,13 @@ h1 {
 .popular-festivals h3 {
     font-weight: 800;
 }
+.all-festivals{
+    margin: 30px 20px 30px 10px;
+}
+
+.all-festivals h3 {
+    font-weight: 800;
+}
 
 .recently-added{
     margin: 10px 20px 20px 10px;
@@ -217,7 +293,10 @@ h1 {
     width: 100%;
     height: auto;
 } */
+.index{
+    margin-top: 5px;
 
+}
 .hero {
     display: flex;
     align-items: center;
@@ -227,10 +306,12 @@ h1 {
     width: 100%;
     height: 400px;
     margin-bottom: 50px;
+
 }
 .overlay{
     display: flex;
     align-items: center;
+    flex-direction: column;
     width: 90%;
     height: 80%;
     background-image: linear-gradient(to bottom right, rgba(32,32,32,0.7), rgba(32,32,32,0.5));
@@ -240,28 +321,35 @@ h1 {
     color: white;
     font-family: "Gravitas One";
     width: 50%;
-    padding: 20px;
+    padding: 10px;
+   text-align: center;
 }
 
 .hero-text span {
     color: #7843E6;
 }
+.home-button-group{
+    display: flex;
+    width: 70%;
+
+}
 .home-cta {
-    width: 50%;
     padding: 20px;
     display: flex;
     justify-content: center;
+    width: 50%;
 }
 
 .cta-button{
     background-color: #7843E6; 
+    border-color: transparent;
     color: white;
     font-weight: 400;
-    font-size: 22px;
+    font-size: 18px;
     padding: 5px 10px;
     margin-right: 20px;
     border-radius: 15px 15px 15px;
-    width: 40%;
+    width: 60%;
     text-align: center;
 }
 
@@ -270,6 +358,8 @@ h1 {
     color: #00b7ff;
     text-align: right;
 }
+
 .form-required{
     color: #FC02FE;
 }
+

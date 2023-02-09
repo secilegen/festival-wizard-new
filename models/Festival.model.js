@@ -37,8 +37,8 @@ const festivalSchema = new Schema (
         },
         currency: {
             type: String,
-            enum: ['EUR','USD','GBP'], 
-            default: 'EUR'
+            enum: ['--','€','$','£'], 
+            default: '€'
         },
         minPrice: {
             type: Number
