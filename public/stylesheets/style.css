@@ -82,7 +82,8 @@ h1 {
 }
     
 .festival-header{
-    color: #7843E6 
+    color: #7843E6;
+    margin: 25px
 }
     
 #festival-navbar {
@@ -91,7 +92,23 @@ h1 {
 }
     
 .logo{
-    width: 100px
+    width: 125px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.navbar{
+    list-style: none;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.logo-navbar{
+    display: flex;
+    justify-content: space-between;
+}
+.profile-button{
+    color: #00b7ff;
 }
 
 .festival-box{
@@ -140,10 +157,12 @@ h1 {
 }
 
 .blue-button{
-    background-color: #5183EF  ; 
-    color: white;  
+    background-color: ivory ; 
+    color: #00b7ff;  
     padding: 10px 10px;
-    border-radius: 15px 15px 15px;
+    border: transparent;
+    text-decoration: underline;
+    /* border-radius: 15px 15px 15px; */
 }
 
 .cyan-button{
@@ -190,6 +209,7 @@ h1 {
     width: 1400px; */
     align-items: center;
     margin-bottom: 50px;
+
   }
 
 /* .home-list{
@@ -255,7 +275,10 @@ h1 {
     width: 100%;
     height: auto;
 } */
+.index{
+    margin-top: 5px;
 
+}
 .hero {
     display: flex;
     align-items: center;
@@ -265,10 +288,12 @@ h1 {
     width: 100%;
     height: 400px;
     margin-bottom: 50px;
+
 }
 .overlay{
     display: flex;
     align-items: center;
+    flex-direction: column;
     width: 90%;
     height: 80%;
     background-image: linear-gradient(to bottom right, rgba(32,32,32,0.7), rgba(32,32,32,0.5));
@@ -278,28 +303,34 @@ h1 {
     color: white;
     font-family: "Gravitas One";
     width: 50%;
-    padding: 20px;
+    padding: 10px;
+   text-align: center;
 }
 
 .hero-text span {
     color: #7843E6;
 }
+.home-button-group{
+    display: flex;
+    width: 70%;
+
+}
 .home-cta {
-    width: 50%;
     padding: 20px;
     display: flex;
     justify-content: center;
+    width: 50%;
 }
 
 .cta-button{
     background-color: #7843E6; 
     color: white;
     font-weight: 400;
-    font-size: 22px;
+    font-size: 18px;
     padding: 5px 10px;
     margin-right: 20px;
     border-radius: 15px 15px 15px;
-    width: 40%;
+    width: 60%;
     text-align: center;
 }
 
