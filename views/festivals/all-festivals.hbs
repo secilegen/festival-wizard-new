@@ -37,6 +37,11 @@
 
     </form>
 
+    {{#if errorMessage}}
+      <br><br>
+      <p class={{errorType}}>{{errorMessage}}</p>
+    {{/if}}
+
 
 <div id="container" class="festival-list"> 
 
@@ -48,9 +53,9 @@
         <div class="festival-text"> 
 
           {{#if imageURL}}
-            <img alt="Festival image" width="100%" src="{{imageURL}}">   
+            <img alt="Festival image" src="{{imageURL}}" class="image">
           {{else}}
-            <img alt="Festival image" width="100%" src="https://res.cloudinary.com/dl4tnpmqr/image/upload/v1675525382/festival-wizard/cdqqeprozbnvusmra06v.jpg">  
+            <img alt="Festival image" src="https://res.cloudinary.com/dl4tnpmqr/image/upload/v1675525382/festival-wizard/cdqqeprozbnvusmra06v.jpg" class="image">  
           {{/if}} 
 
           <br><br>

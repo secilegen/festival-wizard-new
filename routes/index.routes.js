@@ -16,13 +16,8 @@ router.get("/", (req, res, next) => {
       festivalsByDate = result
     })
     .then(()=>{
-    console.log('Most popular are:', mostPopular)
-    console.log('Sorted by date:', festivalsByDate)
-    res.render("index", {mostPopular, festivalsByDate});
-
+      res.render("index", {mostPopular, festivalsByDate});
     })
-
-
   })
 });
 

@@ -17,9 +17,7 @@ router.post(
     const inputChecked = checkInput(req);
 
     if (inputChecked.errorMessage) {
-      console.log("REQ:body ", req.body)
       inputChecked.oldData = req.body;
-      console.log("INPUTCHECKED ", inputChecked.oldData)
       res.render("festivals/new-festival-form", inputChecked);
     } else {
       const {
@@ -76,16 +74,16 @@ router.get("/search",(req,res)=> {
 
   var hasName, hasCountry, hasGenre
 
-  if (req.query.name) {
-    hasName = true
-  }
-  else{
-    hasName = false
-  }
-  hasCountry = !(req.query.country = "--")
-  hasGenre = !(req.query.genre === "--")
+  const {country}= req.query
 
-  console.log("REQ.QUERY", req.query)
+  if (req.query.name) {
+      hasName = true
+   }
+  else{
+      hasName = false
+  }
+  hasCountry = !(req.query.country === "--")
+  hasGenre = !(req.query.genre === "--")
 
   if (hasName || hasCountry || hasGenre){
 
@@ -93,10 +91,8 @@ router.get("/search",(req,res)=> {
     filter2 = "Country: "+ req.query.country
     filter3 = "Genre: "+ req.query.genre
 
-    console.log("hasName ", hasName, "hasCountry ", hasCountry, "hasGenre ", hasGenre)
-
     if (hasName && hasCountry && hasGenre){
-      Festival.find( {"$or": [{name:{$regex:req.query.name}, location:{country:{$regex:req.query.country}}, genre:{$regex:req.query.genre}}]} )
+      Festival.find( {"$or": [{name:{$regex:req.query.name}, "location.country":country, genre:{$regex:req.query.genre}}]}) 
       .then((someFestivals) => {
         res.render('festivals/some-festivals', { countries, someFestivals , filter: filter1+", "+filter2+", "+filter3})
       })
@@ -105,7 +101,7 @@ router.get("/search",(req,res)=> {
     )}
 
     else if (hasName && hasCountry){
-      Festival.find( {"$or": [{name:{$regex:req.query.name}, location:{country:{$regex:req.query.country}},}]} )
+      Festival.find( {"$or": [{name:{$regex:req.query.name}, "location.country":country}]} )
       .then((someFestivals) => {
         res.render('festivals/some-festivals', { countries, someFestivals , filter: filter1+", "+filter2})
       })
@@ -123,7 +119,7 @@ router.get("/search",(req,res)=> {
     )}
 
     else if (hasCountry && hasGenre){
-      Festival.find( {"$or": [{location:{country:{$regex:req.query.country}}, genre:{$regex:req.query.genre}}]} )
+      Festival.find( {"$or": [{"location.country":country, genre:{$regex:req.query.genre}}]} )
       .then((someFestivals) => {
         res.render('festivals/some-festivals', { countries, someFestivals , filter: filter2+", "+filter3})
       })
@@ -139,15 +135,16 @@ router.get("/search",(req,res)=> {
       .catch((err) =>
       console.log("Error occured searching by name:", err)
     )}
+
     else if (hasCountry) {
-      Festival.find( {"$or": [{location:{country:{$regex:req.query.country}}}]} )
+      Festival.find( {"$or": [{"location.country":country}]} )
       .then((someFestivals) => {
         res.render('festivals/some-festivals', { countries, someFestivals , filter: filter2})
       })
       .catch((err) =>
       console.log("Error occured searching by country:", err)
-    )
-    }
+    )}
+
     else if (hasGenre){
       Festival.find( {"$or": [{genre:{$regex:req.query.genre}}]} )
       .then((someFestivals) => {
@@ -155,18 +152,22 @@ router.get("/search",(req,res)=> {
       })
       .catch((err) =>
       console.log("Error occured searching by genre:", err)
-    )   
-    }
+    )}
+
     else{
       console.log("This should be impossible. Check your code")
-    }
+    }}
+  else {
+    errorMessage = "Please select a Festival Name, Country, or Genre before searching"
+    errorType = "selectWarning"
+    Festival.find()
+    .then((allFestivals) => {
+      res.render("festivals/all-festivals", { allFestivals, countries, errorMessage, errorType});
+    })
+    .catch((err) =>
+      console.log("Error occured retrieving all festivals:", err)
+    );
   }
-else {
-  // Festival.find()
-  // .then((allFestivals) => {
-  //   res.render("festivals/all-festivals", { allFestivals, countries });
-  // })  
-}
 })
 
 
@@ -177,7 +178,6 @@ router.get("/festivals/:festivalId", (req, res) => {
   if (req.session.currentUser) {
     User.findById(req.session.currentUser._id)
       .then((userFromDB) => {
-        console.log("User from DB Festivals is", userFromDB);
         for (let i = 0; i < userFromDB.festivals.length; i++) {
           if (userFromDB.festivals.length == 0) {
             isIncludingFav = false;
@@ -192,7 +192,6 @@ router.get("/festivals/:festivalId", (req, res) => {
       .then(() => {
         Festival.findOne({ _id: req.params.festivalId }).then(
           (festivalDetails) => {
-            console.log(festivalDetails);
             res.render("festivals/festival-details", {
               festivalDetails,
               isIncludingFav,
@@ -205,7 +204,6 @@ router.get("/festivals/:festivalId", (req, res) => {
       );
   } else {
     Festival.findOne({ _id: req.params.festivalId }).then((festivalDetails) => {
-      console.log(festivalDetails);
       res.render("festivals/festival-details", { festivalDetails });
     });
   }
@@ -344,7 +342,6 @@ function checkInput(req) {
     message = "You must enter a name for your Festival";
     errorType = "error";
   } else if (!req.body.startDate && !req.body.endDate) {
-    // if there is an end date but no start date, code below sets start date to end date
     message = "You must enter a Start Date";
     errorType = "error";
   } else if (!req.body.country) {
