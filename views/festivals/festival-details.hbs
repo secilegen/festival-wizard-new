@@ -8,7 +8,7 @@
   <div class="festival-box">
     <h1 style="color: #7843E6">{{festivalDetails.name}}</h1>
     <h2>{{festivalDetails.startDate}} - {{festivalDetails.endDate}}</h2>
-    {{#if festivalDetails.location.address}}{{festivalDetails.location.address}}{{/if}}
+    {{#if festivalDetails.location.venue}}{{festivalDetails.location.venue}}{{/if}}
     {{festivalDetails.location.city}}, {{festivalDetails.location.country}}
   </div>
 
@@ -29,8 +29,8 @@
     <h4><span style="color: #5183EF">Genre: </span>{{festivalDetails.genre}}</h4>
   {{/if}}
 
-  {{#if festivalDetails.mustKnow}}
-    <h4><span style="color: #5183EF">Fun fact: </span>{{festivalDetails.mustKnow}}</h4>
+  {{#if festivalDetails.description}}
+    <h4><span style="color: #5183EF">Fun fact: </span>{{festivalDetails.description}}</h4>
   {{/if}}
 
   {{#if festivalDetails.website}}

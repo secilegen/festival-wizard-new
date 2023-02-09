@@ -2,7 +2,7 @@
 
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-6">
+            <div class="col-md-10">
 
                 <h1 style="color: #7843E6"><b>New Festival</b></h1>
 
@@ -10,7 +10,7 @@
 
                 <form action="/festivals/create" method="POST" enctype="multipart/form-data">
                     <label>
-                        <b>Name:</b> <input class="mandatory" type="text" name="name" placeholder="Festival name" value="{{oldData.name}}"/>
+                        <b>Name<span class="form-required">*</span>:</b> <input class="mandatory" type="text" name="name" placeholder="Festival name" value="{{oldData.name}}"/>
                     </label><br><br>
 
                     <label>
@@ -19,7 +19,7 @@
                     </label><br><br>
 
                     <label>
-                        <b>Start Date:</b> <input class="mandatory" type="date" name="startDate" placeholder="Start Date" value="{{oldData.startDate}}">
+                        <b>Start Date<span class="form-required">*</span>:</b> <input class="mandatory" type="date" name="startDate" placeholder="Start Date" value="{{oldData.startDate}}">
                     </label>
 
                     <label>
@@ -31,7 +31,7 @@
                     </label><br><br>
 
                     <label>
-                        <b>Country:</b> 
+                        <b>Country<span class="form-required">*</span>:</b> 
         
                         <select class="mandatory" id="country" name="country" class="">
                             <option selected>--</option>
@@ -48,11 +48,11 @@
                     </label>  <br><br>  
 
                     <label>
-                        <b>City:</b> <input class="mandatory" type="text" name="city" placeholder="City" value="{{oldData.city}}">
+                        <b>City<span class="form-required">*</span>:</b> <input class="mandatory" type="text" name="city" placeholder="City" value="{{oldData.city}}">
                     </label><br><br>
 
                     <label>
-                        <b>Address:</b> <input type="text" name="address" placeholder="Address" value="{{oldData.address}}">
+                        <b>Venue:</b> <input type="text" name="venue" placeholder="Venue" value="{{oldData.venue}}">
                     </label><br><br>
 
                     <label>
@@ -74,11 +74,11 @@
                     </label><br><br>
 
                     <label>
-                        <b>Website:</b> <input type="text" class="mandatory" name="website" placeholder="Add a link to a URL" value="{{oldData.website}}">
+                        <b>Website<span class="form-required">*</span>:</b> <input type="text" class="mandatory" name="website" placeholder="Add a link to a URL" value="{{oldData.website}}">
                     </label><br><br>
 
                     <label>
-                        <b>Key fact:</b> <input type="text" name="mustKnow" placeholder="Add one key fact about the festival"value="{{oldData.mustKnow}}">
+                        <b>Description:</b> <input type="text" name="description" placeholder="Add description about the festival"value="{{oldData.description}}">
                     </label><br><br>
 
                     <label>
