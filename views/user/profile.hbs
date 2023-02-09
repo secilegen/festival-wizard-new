@@ -1,21 +1,46 @@
 {{#if userInfo}}
+<div class="profile-title">
+  <h6><b>Welcome, {{userInfo.email}}!</b></h6>
+</div>
 
-<h1 style="color: #7843E6;"><b>Welcome {{userInfo.email}}</b></h1>
-<p>This is your profile page</p>
 
-{{#if userInfo.isAdmin}}
-  <p><b>You are an admin</b></p>
-{{/if}}
 <br><br>
-
-<h2 style="color: #5183EF"><b>My Favorites</b></h2>
+{{!-- 
+{{#if userInfo.isAdmin}}
+    <button onclick="window.location.href=`/festivals/create`;" class="blue-button"><h4>Create a New Festival</h4></button>
+{{/if}} --}}
+<h2 style="color: #FC02FE"><b>My Favorite Festivals</b></h2>
 
   {{#if festivals}}
-    <ul>
-      {{#each festivals}}
-        <li><h4><a href="/festivals/{{_id}}" style="color: #FC02FE">{{name}}</a></h4></li>
-      {{/each}}
-    </ul></uk>
+
+    <div class="home-container" id="home-list">
+    {{#each festivals}}
+      <div class="home-single-festival">
+
+        <div class="home-festival-image">
+          <img class="festival-image"
+            alt="Festival image"
+            {{!-- width="400px"
+            height="250px" --}}
+            src="{{this.imageURL}}"
+          />
+        </div>
+          <div class="home-festival-text">
+            <h3 style="color: #7843E6; margin-bottom: 0">{{this.name}}</h3>
+          
+          <p>{{this.startDate}} - {{this.endDate}}</p>
+          <p>{{this.location.country}},
+            {{this.location.city}}</p></div>
+        <div class="detail-button">
+          <button
+            onclick="window.location.href=`/festivals/{{_id}}`;"
+            class="purple-button"
+          >See Details</button>
+        </div>
+      </div>
+
+    {{/each}}
+  </div>
   {{else}}
         <h4><b>You haven't added any festivals on your favorites list.</b></h4>
         <h4><b>To add a favorite, go to the <a href="/festivals/list">All Festivals</a> page</b></h4>
@@ -24,3 +49,7 @@
 {{else}}
 <p>You are not logged in</p>
 {{/if}}
+
+
+
+

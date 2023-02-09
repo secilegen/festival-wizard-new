@@ -1,7 +1,8 @@
 
 body {
     padding: 50px;
-    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    font-size: 14px ;
+    font-family: "Roboto Mono", Helvetica, Arial, sans-serif;
     background: ivory;
 
 }
@@ -163,6 +164,7 @@ h1 {
     background-color: lightgray
 }
 
+
 .login-signup{
     background-size: 1000px 1000px;
     padding: 50px;
@@ -177,5 +179,132 @@ h1 {
     width: 100%;
     height: 250px;
     object-fit: cover;
+}
 
+.home-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    /* height: 800px;
+    width: 1400px; */
+    align-items: center;
+    margin-bottom: 50px;
+  }
+
+/* .home-list{
+    padding:0 0 10px 50px;
+    text-align:center;
+} */
+
+.home-single-festival{
+    padding: 5px;
+    width: 30%;
+    height: 400px;
+    text-align: center;
+    display: flex;
+    margin: 10px 20px 10px 20px;
+    flex-direction: column;
+    align-content: space-around;
+
+}
+.home-festival-image{
+    width: 100%;
+    height: 60%;
+}
+.home-festival-image img{
+    width: 100%;
+    height: 100%;
+}
+
+.home-festival-text{
+    height: 20%;
+    line-height: 2px;
+    text-align:left;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    /* align-items: center; */
+}
+
+.detail-button{
+    height: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.popular-festivals{
+    margin: 30px 20px 30px 10px;
+}
+
+.popular-festivals h3 {
+    font-weight: 800;
+}
+
+.recently-added{
+    margin: 10px 20px 20px 10px;
+
+}
+
+.recently-added h3 {
+    font-weight: 800;
+}
+
+/* .festival-image{
+    width: 100%;
+    height: auto;
+} */
+
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: url("https://res.cloudinary.com/dl4tnpmqr/image/upload/v1675875924/festival-wizard/ewpmy4lacfcfdajjvqbq.png") no-repeat center center fixed;
+    /* background-image: url("https://res.cloudinary.com/dl4tnpmqr/image/upload/v1675875924/festival-wizard/ewpmy4lacfcfdajjvqbq.png"); */
+    width: 100%;
+    height: 400px;
+    margin-bottom: 50px;
+}
+.overlay{
+    display: flex;
+    align-items: center;
+    width: 90%;
+    height: 80%;
+    background-image: linear-gradient(to bottom right, rgba(32,32,32,0.7), rgba(32,32,32,0.5));
+    padding: 20px;
+}
+.hero-text{
+    color: white;
+    font-family: "Gravitas One";
+    width: 50%;
+    padding: 20px;
+}
+
+.hero-text span {
+    color: #7843E6;
+}
+.home-cta {
+    width: 50%;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.cta-button{
+    background-color: #7843E6; 
+    color: white;
+    font-weight: 400;
+    font-size: 22px;
+    padding: 5px 10px;
+    margin-right: 20px;
+    border-radius: 15px 15px 15px;
+    width: 40%;
+    text-align: center;
+}
+
+.profile-title{
+    font-family: "Gravitas One";
+    color: #00b7ff;
+    text-align: right;
 }
