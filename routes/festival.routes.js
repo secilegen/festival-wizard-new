@@ -27,12 +27,12 @@ router.post(
          endDate,
          country,
          city,
-         address,
+         venue,
          currency,
          minPrice,
          maxPrice,
          website,
-         mustKnow,
+         description,
          genre,
        } = req.body;
 
@@ -41,12 +41,12 @@ router.post(
          imageURL: req.file?.path,
          startDate,
          endDate,
-         location: { city, country, address },
+         location: { city, country, venue },
          currency,
          minPrice,
          maxPrice,
          website,
-         mustKnow,
+         description,
          genre,
        })
       .then((createdFestival) => {
@@ -285,7 +285,7 @@ router.post(
         minPrice: req.body.minPrice,
         maxPrice: req.body.maxPrice,
         website: req.body.website,
-        mustKnow: req.body.mustKnow,
+        description: req.body.description,
         genre: req.body.genre,
         artists: req.body.artists,
         // also fix this acc to cloudinary
@@ -293,7 +293,7 @@ router.post(
         _id: req.params.id,
         location: {
           city: req.body.city,
-          address: req.body.address,
+          venue: req.body.venue,
           country: req.body.country,
         },
       };
@@ -312,12 +312,12 @@ router.post(
         endDate,
         country,
         city,
-        address,
+        venue,
         currency,
         minPrice,
         maxPrice,
         website,
-        mustKnow,
+        description,
         genre,
       } = req.body;
       let imageURL;
@@ -333,12 +333,12 @@ router.post(
         imageURL,
         startDate,
         endDate,
-        location: { city, country, address },
+        location: { city, country, venue },
         currency,
         minPrice,
         maxPrice,
         website,
-        mustKnow,
+        description,
         genre,
       })
         .then((festivalToUpdate) => {

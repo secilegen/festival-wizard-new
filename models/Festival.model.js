@@ -31,7 +31,7 @@ const festivalSchema = new Schema (
                 type: String,
                 required: [true, "Please enter the city"]
             },
-            address: {
+            venue: {
                 type: String
             }
         },
@@ -50,7 +50,7 @@ const festivalSchema = new Schema (
             type: String,
             required: [true, "Please enter a website"]
         },
-        mustKnow: {
+        description: {
             type: String
         },
         genre: {
