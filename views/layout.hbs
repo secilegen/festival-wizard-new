@@ -12,39 +12,30 @@
 
 </head>
 
+
 <body>
-    <nav>
-
-        <ul style="list-style: none">
-            <a href="/">
-                <img src="images/festival-wizard.png" alt="" class="logo">   
-            </a>
-
-            <li id="festival-navbar">
-
+    <div class="logo-navbar">
+        <div class="logo">
+            <a href="/"><img src="https://res.cloudinary.com/dl4tnpmqr/image/upload/v1675971670/festival-wizard/mwuamk523n3tsttjrbrf.png" alt="" class="logo"></a>
+        </div>
+        <nav class="navbar">
             <a href="/festivals/list" class="festival-header"><b>FESTIVALS</b></a> <span> | </span>
-
             {{#if userInfo.isAdmin}}
                 <a href="/festivals/create" class="festival-header"><b>CREATE FESTIVAL</b></a> <span> | </span>
-            {{/if}} 
-      
-
+            {{/if}}   
             {{#if userInfo}}
-
-                <a href="/profile"><b>PROFILE</b></a> <span> | </span>
+                <a href="/profile" class="festival-header profile-button"><b>PROFILE</b></a> <span> | </span>
                 <form id="logout-form" action="/logout" method="POST">
-                    <br>
-                    <button class="blue-button">Logout</button>
+                    <button class="blue-button">LOGOUT</button>
                 </form>
             {{else}}
-                <a href="/sign-up"><b>SIGN-UP</b></a> <span> | </span>
-                <a href="/login"><b>LOGIN</b></a> <span> | </span>
+                <a href="/sign-up" class="festival-header"><b>SIGN-UP</b></a> <span> | </span>
+                <a href="/login" class="festival-header"><b>LOGIN</b></a> <span> | </span>
             {{/if}}
-        </ul>
-    </nav><br>
-
+        </nav>
+    </div>
+    
     {{{body}}}
-
     <script src="/js/script.js"></script>
 </body>
 

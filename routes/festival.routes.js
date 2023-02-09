@@ -170,6 +170,18 @@ router.get("/search",(req,res)=> {
   }
 })
 
+router.get("/festivals/feelinglucky", (req, res) => {
+  //isIncludingFav to be added
+  let randomFestival
+  Festival.aggregate([{$sample: {size:1}}])
+  .then((result) => {
+    randomFestival = result[0]
+    console.log("Random festival is:", randomFestival)
+    res.render("festivals/random-festival", {randomFestival});
+  })
+  .catch(err=>console.log(err))
+
+});
 
 
 router.get("/festivals/:festivalId", (req, res) => {
@@ -388,5 +400,6 @@ function checkInput(req) {
 
   return { countries, errorMessage: message, errorType, oldData: req.body };
 }
+
 
 module.exports = router;

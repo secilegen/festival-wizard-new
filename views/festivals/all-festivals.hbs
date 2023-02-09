@@ -1,16 +1,15 @@
-<h1><b>Here are all the Festivals in our Database</b></h1>
+<div class="all-festivals">
+  <h3>ALL FESTIVALS</h3>
 
-
-<div class="search-container">
-
-  <div>
+<div class="search-bar">
 
     <form action="/search" method="GET">
+      <div class="search-container">
+      <div class="search-fields">
+        <label for=""><h5>Name</h5>
+          <input type="text" name="name"></label>
 
-      <div>
-        <label for=""><input type="text" name="name"></label>
-
-        <label>
+        <label><h5>Country</h5>
           <select id="country" name="country" class="">
             <option selected>--</option>
             {{#each countries}}
@@ -19,7 +18,7 @@
           </select>
         </label>
 
-        <label>
+        <label> <h5>Genre</h5>
           <select name="genre">
               <option selected>--</option>
               <option value="Rock">Rock</option>
@@ -31,56 +30,47 @@
           </select>
         </label>
 
-      </div><br><br>
-
-      <button type="submit" class="wide-purple-button"><h4>Search by Name, Country, and Genre</h4></button>
-
+      </div>
+      <div class="search-button">
+      <button type="submit" class="wide-purple-button"><h5>Search</h5></button>
+      </div>
+      </div>
     </form>
 
     {{#if errorMessage}}
       <br><br>
       <p class={{errorType}}>{{errorMessage}}</p>
     {{/if}}
-
-<div id="container" class="festival-list"> 
+</div>
+<hr>
+<div class="home-container" id="home-list"> 
 
   {{#if allFestivals}}
-
     {{#each allFestivals}}
+      <div class="home-single-festival">
 
-      <div class="single-festival">
-        <div class="festival-text"> 
-
-          {{#if imageURL}}
-            <img alt="Festival image" src="{{imageURL}}" class="image">
-          {{else}}
-            <img alt="Festival image" src="https://res.cloudinary.com/dl4tnpmqr/image/upload/v1675525382/festival-wizard/cdqqeprozbnvusmra06v.jpg" class="image">  
-          {{/if}} 
-
-          <br><br>
-          <h3 style="color: #7843E6; margin-bottom: 0"><b>{{name}}</b></h3>
-
-          <h3>{{startDate}} - {{endDate}}</h3>
-          <p><b>Location:</b>
-          {{#if location.address}} 
-            {{location.address}}, {{location.country}}, {{location.city}}</p>
-          {{else}}
-            {{location.country}}, {{location.city}}</p>
-          {{/if}}        
-
-          <p><b>Ticket prices: </b>
-          {{#if minPrice}}
-            {{currency}}{{minPrice}}-{{currency}}{{maxPrice}}  
-          {{else}}
-            unavailable
-          {{/if}}
-          </p>
+        <div class="home-festival-image">
+          <img class="festival-image"
+            alt="Festival image"
+            {{!-- width="400px"
+            height="250px" --}}
+            src="{{imageURL}}"
+          />
         </div>
-
-        <div>
-          <button onclick="window.location.href=`/festivals/{{_id}}`;" class="purple-button">See Details</button>
-        </div><br>
+          <div class="home-festival-text">
+            <h3 style="color: #7843E6">{{name}}</h3>
+          
+          <p>{{startDate}} - {{endDate}}</p>
+          <p>{{location.country}},
+            {{location.city}}</p></div>
+        <div class="detail-button">
+          <button
+            onclick="window.location.href=`/festivals/{{_id}}`;"
+            class="purple-button"
+          >See Details</button>
+        </div>
       </div>
+
     {{/each}}
 
   {{else}}
@@ -89,6 +79,7 @@
 
   </div>
 
-<div>
+
+</div>
 
 
