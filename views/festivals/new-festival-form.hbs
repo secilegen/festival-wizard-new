@@ -7,7 +7,9 @@
                 <h1 style="color: #7843E6"><b>New Festival</b></h1>
 
                 <hr>
-
+                    {{#if errorMessage}}
+                      <p class={{errorType}}>{{errorMessage}}</p>
+                    {{/if}}
                 <form action="/festivals/create" method="POST" enctype="multipart/form-data">
                     <label>
                         <b>Name<span class="form-required">*</span>:</b> <input class="mandatory" type="text" name="name" placeholder="Festival name" value="{{oldData.name}}"/>
@@ -83,7 +85,7 @@
                     </label><br><br>
 
                     <label>
-                        <b>Description:</b> <input type="text" name="description" placeholder="Add description about the festival"value="{{oldData.description}}">
+                        <b>Description:</b> <textarea type="text" cols="60" rows="5" name="description" placeholder="Add description about the festival">{{oldData.description}}</textarea>
                     </label><br><br>
 
                     <label>
@@ -101,9 +103,7 @@
 
                     <input type="submit" value="Create Festival" class="purple-button"><br><br>
 
-                    {{#if errorMessage}}
-                      <p class={{errorType}}>{{errorMessage}}</p>
-                    {{/if}}
+                    
                 </form>
 
             </div>

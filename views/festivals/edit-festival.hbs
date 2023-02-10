@@ -7,6 +7,9 @@
                 <h1 style="color: #7843E6"><b>Edit {{festivalToEdit.name}}</b></h1>
 
                 <hr>
+                {{#if errorMessage}}
+                      <p class={{errorType}}>{{errorMessage}}</p>
+                    {{/if}}
                 <form action="/festivals/{{festivalToEdit._id}}/edit/" method="POST">
                     <label>
                         <b>Name:</b> <input class="mandatory" type="text" name="name" value="{{festivalToEdit.name}}">
@@ -76,7 +79,7 @@
                     </label><br><br>
 
                     <label>
-                        <b>Description:</b> <input type="text" name="description" value="{{festivalToEdit.description}}">
+                        <b>Description:</b> <textarea type="text" cols="60" rows="5" name="description" >{{festivalToEdit.description}}</textarea>
                     </label><br><br>
 
                     <label>
@@ -94,11 +97,9 @@
                         </select>
                     </label><br><br>
 
-                    <button type="submit"  class="purple-button"> Edit Festival </button>
+                    <button type="submit"  class="purple-button"> Submit </button>
 
-                    {{#if errorMessage}}
-                      <p class={{errorType}}>{{errorMessage}}</p>
-                    {{/if}}
+                    
                 </form>
 
             </div>
