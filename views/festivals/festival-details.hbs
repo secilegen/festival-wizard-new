@@ -1,9 +1,4 @@
-<div id="single-container"> 
-  {{#if festivalDetails.imageURL}}
-    <div style="background-image: url({{festivalDetails.imageURL}}); background-repeat: no-repeat"; class="picture-box">
-  {{else}}
-    <div style="background-image: url('https://res.cloudinary.com/dl4tnpmqr/image/upload/v1675525382/festival-wizard/cdqqeprozbnvusmra06v.jpg'); background-repeat: no-repeat"; class="picture-box">
-  {{/if}} 
+{{!-- <div id="single-container"> 
   
   <div class="festival-box">
     <h1 style="color: #7843E6">{{festivalDetails.name}}</h1>
@@ -57,4 +52,94 @@
   {{/if}}
 
 
+</div> --}}
+
+<div class="festival-hero" style=" background: url({{festivalDetails.imageURL}}) no-repeat center center;">
+  <div class="festival-overlay">
+    <div class="festival-hero-text">
+      <h1>{{festivalDetails.name}}</h1>
+    </div>
+    <div class="icons">
+      <div class="icon-container">
+        <img src="https://res.cloudinary.com/dl4tnpmqr/image/upload/v1676024779/festival-wizard/nbjtpeyqm43f4oc4jfi2.png" alt="pin-icon">
+        <h6>{{festivalDetails.location.city}}, {{festivalDetails.location.country}}</h6>
+      </div>
+      <div class="icon-container">
+        {{#if festivalDetails.genre}}
+        <img src="https://res.cloudinary.com/dl4tnpmqr/image/upload/v1676024824/festival-wizard/kij7vcinzloep1oetvw0.png" alt="genre-icon">
+        <h6>{{festivalDetails.genre}}</h6>
+          {{/if}}
+      </div>
+    </div>
+  </div>
+</div>
+<div class="sub-festival-hero">
+   {{#if userInfo}}
+  <div class="festival-button-group">
+      {{#if isIncludingFav}}
+    <div class="festival-cta">
+    <button
+      onclick="window.location.href=`/festivals/{{festivalDetails._id}}/unfav/`;"
+      class="festival-button"
+    ><b>REMOVE FAVORITE</b></button>
+  </div>
+      {{else}}
+    <div class="festival-cta">
+    <button
+      onclick="window.location.href=`/festivals/{{festivalDetails._id}}/fav/`;"
+      class="festival-button"
+    ><b>ADD FAVORITE</b></button>
+  </div>
+      {{/if}}
+      {{#if userInfo.isAdmin}}
+  <div class="festival-cta">
+    <button
+      onclick="window.location.href=`/festivals/{{festivalDetails._id}}/edit/`;"
+      class="festival-button"
+    ><b>EDIT</b></button>
+  </div>
+  <div class="festival-cta">
+    <button
+      onclick="window.location.href=`/delete-festival/{{festivalDetails._id}}`;"
+      class="delete-button"
+    ><b>DELETE</b></button>
+  </div>
+      {{/if}}
+  </div>
+     {{/if}}
+
+  <div class="festival-info-group">
+    {{#if festivalDetails.description}}
+    <div class="info-left">
+      <h2>About</h2>
+      <p>{{festivalDetails.description}}</p>
+    </div>
+    {{/if}}
+    
+    <div class="info-right">
+    <div>
+      <h2>When?</h2>
+      <p>{{festivalDetails.startDate}} - {{festivalDetails.endDate}}</p>
+    </div>
+    {{#if festivalDetails.location.venue}}
+    <div>
+      <h2>Where?</h2>
+      <p>{{festivalDetails.location.venue}}</p>
+    </div>
+    {{/if}}
+    {{#if festivalDetails.artists}}
+    <div>
+      <h2>Who's Playing?</h2>
+      <p>{{festivalDetails.artists}}</p>
+    </div>
+    {{/if}}
+    {{#if festivalDetails.minPrice}}
+    <div>
+      <h2>What does it cost?</h2>
+      <p>{{festivalDetails.currency}}{{festivalDetails.minPrice}} - {{festivalDetails.currency}}{{festivalDetails.maxPrice}}</p>
+    </div>
+    {{/if}}
+  </div>
+ 
+  </div>
 </div>
