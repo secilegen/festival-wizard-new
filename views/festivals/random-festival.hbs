@@ -1,58 +1,89 @@
-<div id="single-container"> 
-  {{#if festivalDetails.imageURL}}
-    <div style="background-image: url({{festivalDetails.imageURL}}); background-repeat: no-repeat"; class="picture-box">
-  {{else}}
-    <div style="background-image: url('https://res.cloudinary.com/dl4tnpmqr/image/upload/v1675525382/festival-wizard/cdqqeprozbnvusmra06v.jpg'); background-repeat: no-repeat"; class="picture-box">
-  {{/if}} 
-  
-  <div class="festival-box">
-    <h1 style="color: #7843E6">{{randomFestival.name}}</h1>
-    <h2>{{randomFestival.startDate}} - {{randomFestival.endDate}}</h2>
-    {{#if randomFestival.location.address}}{{randomFestival.location.address}}{{/if}}
-    {{randomFestival.location.city}}, {{randomFestival.location.country}}
+<div class="festival-hero" style=" background: url({{randomFestival.imageURL}}) no-repeat center center;">
+  <div class="festival-overlay">
+    <div class="festival-hero-text">
+      <h1>{{randomFestival.name}}</h1>
+    </div>
+    <div class="icons">
+      <div class="icon-container">
+        <img src="https://res.cloudinary.com/dl4tnpmqr/image/upload/v1676024779/festival-wizard/nbjtpeyqm43f4oc4jfi2.png" alt="pin-icon">
+        <h6>{{randomFestival.location.city}}, {{randomFestival.location.country}}</h6>
+      </div>
+      <div class="icon-container">
+        {{#if randomFestival.genre}}
+        <img src="https://res.cloudinary.com/dl4tnpmqr/image/upload/v1676024824/festival-wizard/kij7vcinzloep1oetvw0.png" alt="genre-icon">
+        <h6>{{randomFestival.genre}}</h6>
+          {{/if}}
+      </div>
+    </div>
   </div>
-
-    {{!-- {{#if userInfo}}
-    <div class="btn-group">
-      {{#if isIncludingFav}}
-        <button onclick="window.location.href=`/festivals/{{randomFestival._id}}/unfav/`;" class="purple-button">Remove Festival from Favorites</button>
-      {{else}}
-        <button onclick="window.location.href=`/festivals/{{randomFestival._id}}/fav/`;" class="purple-button">Add Festival to Favorites</button>
-      {{/if}} --}}
-    <div class="btn-group">
-
-      {{#if userInfo.isAdmin}}
-        <button onclick="window.location.href=`/festivals/{{randomFestival._id}}/edit/`;" class="purple-button">Edit Festival</button>
-        <button onclick="window.location.href=`/delete-festival/{{randomFestival._id}}`;" class="purple-button">Delete Festival</button>
-      {{/if}}
-  {{!-- {{/if}} --}}
 </div>
+<div class="sub-festival-hero">
+   {{#if userInfo}}
+  <div class="festival-button-group">
+      {{#if isIncludingFav}}
+    <div class="festival-cta">
+    <button
+      onclick="window.location.href=`/festivals/{{randomFestival._id}}/unfav/`;"
+      class="festival-button"
+    ><b>REMOVE FAVORITE</b></button>
+  </div>
+      {{else}}
+    <div class="festival-cta">
+    <button
+      onclick="window.location.href=`/festivals/{{randomFestival._id}}/fav/`;"
+      class="festival-button"
+    ><b>ADD FAVORITE</b></button>
+  </div>
+      {{/if}}
+      {{#if userInfo.isAdmin}}
+  <div class="festival-cta">
+    <button
+      onclick="window.location.href=`/festivals/{{randomFestival._id}}/edit/`;"
+      class="festival-button"
+    ><b>EDIT</b></button>
+  </div>
+  <div class="festival-cta">
+    <button
+      onclick="window.location.href=`/delete-festival/{{randomFestival._id}}`;"
+      class="delete-button"
+    ><b>DELETE</b></button>
+  </div>
+      {{/if}}
+  </div>
+     {{/if}}
 
-<div id="festival-info">
-
-  {{#if randomFestival.artists}}
-    <h4><span style="color: #7843E6"><b>with </span>{{randomFestival.artists}}</b></h4>
-  {{else}}
-    <h4><b>Line up tbc</b></h4>
-  {{/if}}
-
-  {{#if randomFestival.minPrice}}
-    <h4><span style="color: #7843E6"><b>Tickets: </span>{{randomFestival.currency}}{{festivalDetails.minPrice}} - {{festivalDetails.currency}}{{festivalDetails.maxPrice}}</b></h4>
-  {{else}}
-    <h4><b>Ticket price not yet known</b></h4>
-  {{/if}}
-
-  {{#if randomFestival.genre}}
-    <h4><span style="color: #7843E6"><b>Genre: </span>{{randomFestival.genre}}</b></h4>
-  {{/if}}
-
-  {{#if randomFestival.mustKnow}}
-    <h4><span style="color: #7843E6"><b>Fun fact: </span>{{randomFestival.mustKnow}}</b></h4>
-  {{/if}}
-
-  {{#if randomFestival.website}}
-    <h4><span style="color: #7843E6"><b>Website: </span>{{randomFestival.website}}</b></h4>
-  {{/if}}
-
-
+  <div class="festival-info-group">
+    {{#if randomFestival.description}}
+    <div class="info-left">
+      <h2>About</h2>
+      <p>{{randomFestival.description}}</p>
+    </div>
+    {{/if}}
+    
+    <div class="info-right">
+    <div>
+      <h2>When?</h2>
+      <p>{{randomFestival.startDate}} - {{randomFestival.endDate}}</p>
+    </div>
+    {{#if randomFestival.location.venue}}
+    <div>
+      <h2>Where?</h2>
+      <p>{{randomFestival.location.venue}}</p>
+    </div>
+    {{/if}}
+    {{#if randomFestival.artists}}
+    <div>
+      <h2>Who's Playing?</h2>
+      <p>{{randomFestival.artists}}</p>
+    </div>
+    {{/if}}
+    {{#if randomFestival.minPrice}}
+    <div>
+      <h2>What does it cost?</h2>
+      <p>{{randomFestival.currency}}{{randomFestival.minPrice}} - {{randomFestival.currency}}{{randomFestival.maxPrice}}</p>
+    </div>
+    {{/if}}
+  </div>
+ 
+  </div>
 </div>
