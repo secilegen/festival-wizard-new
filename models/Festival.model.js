@@ -10,7 +10,7 @@ const festivalSchema = new Schema (
         imageURL: {
             type: String,
             trim: true,
-            default: 'https://res.cloudinary.com/dl4tnpmqr/image/upload/v1675363760/festival-wizard/pe0ok5lbfnhqegvefyuu.jpg',
+            default: 'https://res.cloudinary.com/dl4tnpmqr/image/upload/v1675363760/festival-wizard/pe0ok5lbfnhqegvefyuu.jpg'
         },
         startDate: {
             type: String,
@@ -20,7 +20,7 @@ const festivalSchema = new Schema (
             type: String
         },
         artists: {
-            type: [String]
+            type: String
         },
         location: {
             country: {
