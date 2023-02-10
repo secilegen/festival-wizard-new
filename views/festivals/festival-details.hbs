@@ -8,6 +8,7 @@
   <div class="festival-box">
     <h1 style="color: #7843E6">{{festivalDetails.name}}</h1>
     <h2>{{festivalDetails.startDate}} - {{festivalDetails.endDate}}</h2>
+    <h3>Artists: {{festivalDetails.artists}}</h3>
     {{#if festivalDetails.location.venue}}{{festivalDetails.location.venue}}{{/if}}
     {{festivalDetails.location.city}}, {{festivalDetails.location.country}}
   </div>
