@@ -55,7 +55,7 @@ const festivalSchema = new Schema (
         },
         genre: {
             type: [String],
-            enum: ['Rock', 'Pop', 'Electronic', 'Folk', 'Techno', 'Classical']
+            enum: ['Rock', 'Pop', 'Electronic', 'Folk', 'Techno', 'Classical','Hip-hop', 'Jazz']
         },
         users: [{type: Schema.Types.ObjectId, ref: "User"}],
         favorited: {

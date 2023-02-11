@@ -498,3 +498,37 @@ h1 {
     height: auto;
     margin-right: 5px;
 }
+
+.form-inside {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin: 20px;
+}
+
+.login-signup{
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+   width: 70%;
+}
+.login-button{
+    background-color: #7843E6; 
+    color: white;
+    padding: 5px 10px;
+    margin-right: 20px;
+    border-radius: 15px 15px 15px;
+    width: 50%;
+}
+
+.login-button:hover {
+    background-color:white;
+    color: #7843E6;
+    transition: 0.5s;
+}
+.form-button{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+}

@@ -1,6 +1,10 @@
 <div id="form" style="background-image: url('https://res.cloudinary.com/dl4tnpmqr/image/upload/v1675525382/festival-wizard/cdqqeprozbnvusmra06v.jpg'); background-repeat: no-repeat"; class="login-signup">
-    <h2 style="color: #7843E6"><b>Signup</b></h2>
+    <div><h2 style="color: white"><b>Signup</b></h2>
+    </div>
     <form action="/sign-up" method="POST">
+    <div class="form-inside">
+         <div class="form-label">
+
     <label for="">
         Email
         <input type="email" name="email" placeholder="example@example.com">
@@ -8,10 +12,13 @@
     <label for="">
         Password
         <input type="password" name="password" placeholder="**********">
-    </label>
-    <button type="submit" class="purple-button">Sign Up</button>
+    </label> </div>
+    <div class="form-button">
+    <button type="submit" class="login-button">Sign Up</button>
+    </div>
     {{#if errorMessage}} 
       <p class="error">{{errorMessage}}</p>
     {{/if}}
+    </div>
     </form>
 </div>
