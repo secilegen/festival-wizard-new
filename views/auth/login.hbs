@@ -1,19 +1,26 @@
 <div id="form" style="background-image: url('https://res.cloudinary.com/dl4tnpmqr/image/upload/v1675525382/festival-wizard/cdqqeprozbnvusmra06v.jpg'); background-repeat: no-repeat"; class="login-signup">
-   
-    <h2 style="color: #7843E6"><b>Login</b></h2>
+   <div>
+    <h2 style="color: white"><b>Login</b></h2>
+    </div>
     <form action="/login" method="POST">
-    <label for="">
+    <div class="form-inside">
+        <div class="form-label">
+    <label for="" >
         Email
         <input type="email" name="email" placeholder="example@example.com">
     </label>
     <label for="">
         Password
         <input type="password" name="password" placeholder="**********">
-    </label>
-    <button type="submit" class="purple-button">Log In</button>
+    </label> </div>
+    <div class="form-button">
+    <button type="submit" class="login-button">Log In</button>
+    </div>
     {{#if errorMessage}} 
         <p class="error">{{errorMessage}}</p>
     {{/if}}
+    </div>
     </form>
-</div>
+    </div>
+
 
